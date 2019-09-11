@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6C890E3B2328E27D007051E6 /* PineappleTimer WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 6C890E3A2328E27D007051E6 /* PineappleTimer WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6C890E3B2328E27D007051E6 /* Pineapple Timer.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 6C890E3A2328E27D007051E6 /* Pineapple Timer.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6C890E412328E27D007051E6 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C890E3F2328E27D007051E6 /* Interface.storyboard */; };
 		6C890E432328E27E007051E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C890E422328E27E007051E6 /* Assets.xcassets */; };
 		6C890E4A2328E27E007051E6 /* PineappleTimer WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6C890E492328E27E007051E6 /* PineappleTimer WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -56,7 +56,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				6C890E3B2328E27D007051E6 /* PineappleTimer WatchKit App.app in Embed Watch Content */,
+				6C890E3B2328E27D007051E6 /* Pineapple Timer.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,7 +65,7 @@
 
 /* Begin PBXFileReference section */
 		6C890E362328E27D007051E6 /* PineappleTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PineappleTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C890E3A2328E27D007051E6 /* PineappleTimer WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PineappleTimer WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C890E3A2328E27D007051E6 /* Pineapple Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pineapple Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C890E402328E27D007051E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		6C890E422328E27E007051E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C890E442328E27E007051E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				6C890E362328E27D007051E6 /* PineappleTimer.app */,
-				6C890E3A2328E27D007051E6 /* PineappleTimer WatchKit App.app */,
+				6C890E3A2328E27D007051E6 /* Pineapple Timer.app */,
 				6C890E492328E27E007051E6 /* PineappleTimer WatchKit Extension.appex */,
 			);
 			name = Products;
@@ -181,7 +181,7 @@
 			);
 			name = "PineappleTimer WatchKit App";
 			productName = "PineappleTimer WatchKit App";
-			productReference = 6C890E3A2328E27D007051E6 /* PineappleTimer WatchKit App.app */;
+			productReference = 6C890E3A2328E27D007051E6 /* Pineapple Timer.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
 		6C890E482328E27E007051E6 /* PineappleTimer WatchKit Extension */ = {
@@ -481,7 +481,7 @@
 				IBSC_MODULE = PineappleTimer_WatchKit_Extension;
 				INFOPLIST_FILE = "PineappleTimer WatchKit App/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Pineapple Timer";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -500,7 +500,7 @@
 				IBSC_MODULE = PineappleTimer_WatchKit_Extension;
 				INFOPLIST_FILE = "PineappleTimer WatchKit App/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Pineapple Timer";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
