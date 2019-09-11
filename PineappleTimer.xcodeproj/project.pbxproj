@@ -1,0 +1,580 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6C890E3B2328E27D007051E6 /* PineappleTimer WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 6C890E3A2328E27D007051E6 /* PineappleTimer WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6C890E412328E27D007051E6 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C890E3F2328E27D007051E6 /* Interface.storyboard */; };
+		6C890E432328E27E007051E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C890E422328E27E007051E6 /* Assets.xcassets */; };
+		6C890E4A2328E27E007051E6 /* PineappleTimer WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6C890E492328E27E007051E6 /* PineappleTimer WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6C890E4F2328E27E007051E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C890E4E2328E27E007051E6 /* ContentView.swift */; };
+		6C890E512328E27E007051E6 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C890E502328E27E007051E6 /* HostingController.swift */; };
+		6C890E532328E27E007051E6 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C890E522328E27E007051E6 /* ExtensionDelegate.swift */; };
+		6C890E552328E27E007051E6 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C890E542328E27E007051E6 /* NotificationController.swift */; };
+		6C890E572328E27E007051E6 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C890E562328E27E007051E6 /* NotificationView.swift */; };
+		6C890E592328E27E007051E6 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C890E582328E27E007051E6 /* ComplicationController.swift */; };
+		6C890E5B2328E27F007051E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C890E5A2328E27F007051E6 /* Assets.xcassets */; };
+		6C890E5E2328E27F007051E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C890E5D2328E27F007051E6 /* Preview Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6C890E3C2328E27D007051E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6C890E302328E27D007051E6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6C890E392328E27D007051E6;
+			remoteInfo = "PineappleTimer WatchKit App";
+		};
+		6C890E4B2328E27E007051E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6C890E302328E27D007051E6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6C890E482328E27E007051E6;
+			remoteInfo = "PineappleTimer WatchKit Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6C890E662328E27F007051E6 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6C890E4A2328E27E007051E6 /* PineappleTimer WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C890E6A2328E27F007051E6 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				6C890E3B2328E27D007051E6 /* PineappleTimer WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		6C890E362328E27D007051E6 /* PineappleTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PineappleTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C890E3A2328E27D007051E6 /* PineappleTimer WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PineappleTimer WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C890E402328E27D007051E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		6C890E422328E27E007051E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6C890E442328E27E007051E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6C890E492328E27E007051E6 /* PineappleTimer WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "PineappleTimer WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C890E4E2328E27E007051E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6C890E502328E27E007051E6 /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
+		6C890E522328E27E007051E6 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		6C890E542328E27E007051E6 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		6C890E562328E27E007051E6 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		6C890E582328E27E007051E6 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		6C890E5A2328E27F007051E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6C890E5D2328E27F007051E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6C890E5F2328E27F007051E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6C890E602328E27F007051E6 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6C890E462328E27E007051E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6C890E2F2328E27D007051E6 = {
+			isa = PBXGroup;
+			children = (
+				6C890E3E2328E27D007051E6 /* PineappleTimer WatchKit App */,
+				6C890E4D2328E27E007051E6 /* PineappleTimer WatchKit Extension */,
+				6C890E372328E27D007051E6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6C890E372328E27D007051E6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6C890E362328E27D007051E6 /* PineappleTimer.app */,
+				6C890E3A2328E27D007051E6 /* PineappleTimer WatchKit App.app */,
+				6C890E492328E27E007051E6 /* PineappleTimer WatchKit Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6C890E3E2328E27D007051E6 /* PineappleTimer WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				6C890E3F2328E27D007051E6 /* Interface.storyboard */,
+				6C890E422328E27E007051E6 /* Assets.xcassets */,
+				6C890E442328E27E007051E6 /* Info.plist */,
+			);
+			path = "PineappleTimer WatchKit App";
+			sourceTree = "<group>";
+		};
+		6C890E4D2328E27E007051E6 /* PineappleTimer WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				6C890E4E2328E27E007051E6 /* ContentView.swift */,
+				6C890E502328E27E007051E6 /* HostingController.swift */,
+				6C890E522328E27E007051E6 /* ExtensionDelegate.swift */,
+				6C890E542328E27E007051E6 /* NotificationController.swift */,
+				6C890E562328E27E007051E6 /* NotificationView.swift */,
+				6C890E582328E27E007051E6 /* ComplicationController.swift */,
+				6C890E5A2328E27F007051E6 /* Assets.xcassets */,
+				6C890E5F2328E27F007051E6 /* Info.plist */,
+				6C890E602328E27F007051E6 /* PushNotificationPayload.apns */,
+				6C890E5C2328E27F007051E6 /* Preview Content */,
+			);
+			path = "PineappleTimer WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		6C890E5C2328E27F007051E6 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				6C890E5D2328E27F007051E6 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6C890E352328E27D007051E6 /* PineappleTimer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C890E6B2328E27F007051E6 /* Build configuration list for PBXNativeTarget "PineappleTimer" */;
+			buildPhases = (
+				6C890E342328E27D007051E6 /* Resources */,
+				6C890E6A2328E27F007051E6 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6C890E3D2328E27D007051E6 /* PBXTargetDependency */,
+			);
+			name = PineappleTimer;
+			productName = PineappleTimer;
+			productReference = 6C890E362328E27D007051E6 /* PineappleTimer.app */;
+			productType = "com.apple.product-type.application.watchapp2-container";
+		};
+		6C890E392328E27D007051E6 /* PineappleTimer WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C890E672328E27F007051E6 /* Build configuration list for PBXNativeTarget "PineappleTimer WatchKit App" */;
+			buildPhases = (
+				6C890E382328E27D007051E6 /* Resources */,
+				6C890E662328E27F007051E6 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6C890E4C2328E27E007051E6 /* PBXTargetDependency */,
+			);
+			name = "PineappleTimer WatchKit App";
+			productName = "PineappleTimer WatchKit App";
+			productReference = 6C890E3A2328E27D007051E6 /* PineappleTimer WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		6C890E482328E27E007051E6 /* PineappleTimer WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C890E632328E27F007051E6 /* Build configuration list for PBXNativeTarget "PineappleTimer WatchKit Extension" */;
+			buildPhases = (
+				6C890E452328E27E007051E6 /* Sources */,
+				6C890E462328E27E007051E6 /* Frameworks */,
+				6C890E472328E27E007051E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PineappleTimer WatchKit Extension";
+			productName = "PineappleTimer WatchKit Extension";
+			productReference = 6C890E492328E27E007051E6 /* PineappleTimer WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6C890E302328E27D007051E6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+				ORGANIZATIONNAME = "Elaborapp Co., Ltd.";
+				TargetAttributes = {
+					6C890E352328E27D007051E6 = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					6C890E392328E27D007051E6 = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					6C890E482328E27E007051E6 = {
+						CreatedOnToolsVersion = 11.0;
+					};
+				};
+			};
+			buildConfigurationList = 6C890E332328E27D007051E6 /* Build configuration list for PBXProject "PineappleTimer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6C890E2F2328E27D007051E6;
+			productRefGroup = 6C890E372328E27D007051E6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6C890E352328E27D007051E6 /* PineappleTimer */,
+				6C890E392328E27D007051E6 /* PineappleTimer WatchKit App */,
+				6C890E482328E27E007051E6 /* PineappleTimer WatchKit Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6C890E342328E27D007051E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C890E382328E27D007051E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C890E432328E27E007051E6 /* Assets.xcassets in Resources */,
+				6C890E412328E27D007051E6 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C890E472328E27E007051E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C890E5E2328E27F007051E6 /* Preview Assets.xcassets in Resources */,
+				6C890E5B2328E27F007051E6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6C890E452328E27E007051E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C890E512328E27E007051E6 /* HostingController.swift in Sources */,
+				6C890E4F2328E27E007051E6 /* ContentView.swift in Sources */,
+				6C890E552328E27E007051E6 /* NotificationController.swift in Sources */,
+				6C890E532328E27E007051E6 /* ExtensionDelegate.swift in Sources */,
+				6C890E572328E27E007051E6 /* NotificationView.swift in Sources */,
+				6C890E592328E27E007051E6 /* ComplicationController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6C890E3D2328E27D007051E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6C890E392328E27D007051E6 /* PineappleTimer WatchKit App */;
+			targetProxy = 6C890E3C2328E27D007051E6 /* PBXContainerItemProxy */;
+		};
+		6C890E4C2328E27E007051E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6C890E482328E27E007051E6 /* PineappleTimer WatchKit Extension */;
+			targetProxy = 6C890E4B2328E27E007051E6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6C890E3F2328E27D007051E6 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6C890E402328E27D007051E6 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6C890E612328E27F007051E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6C890E622328E27F007051E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6C890E642328E27F007051E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"PineappleTimer WatchKit Extension/Preview Content\"";
+				DEVELOPMENT_TEAM = SE9N6X5V7C;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "PineappleTimer WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Debug;
+		};
+		6C890E652328E27F007051E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"PineappleTimer WatchKit Extension/Preview Content\"";
+				DEVELOPMENT_TEAM = SE9N6X5V7C;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "PineappleTimer WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Release;
+		};
+		6C890E682328E27F007051E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SE9N6X5V7C;
+				IBSC_MODULE = PineappleTimer_WatchKit_Extension;
+				INFOPLIST_FILE = "PineappleTimer WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Debug;
+		};
+		6C890E692328E27F007051E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SE9N6X5V7C;
+				IBSC_MODULE = PineappleTimer_WatchKit_Extension;
+				INFOPLIST_FILE = "PineappleTimer WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Release;
+		};
+		6C890E6C2328E27F007051E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SE9N6X5V7C;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		6C890E6D2328E27F007051E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SE9N6X5V7C;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6C890E332328E27D007051E6 /* Build configuration list for PBXProject "PineappleTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C890E612328E27F007051E6 /* Debug */,
+				6C890E622328E27F007051E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6C890E632328E27F007051E6 /* Build configuration list for PBXNativeTarget "PineappleTimer WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C890E642328E27F007051E6 /* Debug */,
+				6C890E652328E27F007051E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6C890E672328E27F007051E6 /* Build configuration list for PBXNativeTarget "PineappleTimer WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C890E682328E27F007051E6 /* Debug */,
+				6C890E692328E27F007051E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6C890E6B2328E27F007051E6 /* Build configuration list for PBXNativeTarget "PineappleTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C890E6C2328E27F007051E6 /* Debug */,
+				6C890E6D2328E27F007051E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6C890E302328E27D007051E6 /* Project object */;
+}
