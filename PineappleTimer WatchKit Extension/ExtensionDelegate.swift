@@ -8,10 +8,14 @@
 
 import WatchKit
 
+let dataStorage = DataStorage()
+
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
+        let dates: [Date] = (UserDefaults.standard.array(forKey: datesKey) as? [Date]) ?? []
+        dataStorage.load(dates)
     }
 
     func applicationDidBecomeActive() {

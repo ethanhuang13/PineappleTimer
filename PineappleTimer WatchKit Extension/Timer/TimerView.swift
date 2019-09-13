@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  TimerView.swift
 //  PineappleTimer WatchKit Extension
 //
 //  Created by Ethanhuang on 9/11/19.
@@ -16,7 +16,8 @@ let limit: Double = 25 * 60
 let limit: Double = 25 * 60
 #endif
 
-struct ContentView: View {
+struct TimerView: View {
+    @EnvironmentObject var dataStorage: DataStorage
     @State private var time: TimeInterval = 0
     @State private var now = Date()
     @State private var end = Date()
@@ -40,6 +41,10 @@ struct ContentView: View {
         }
     }
 
+    var timeText: some View {
+        Text(isCountingDown ? end.timeIntervalSince(now).minuteSecondString : time.minuteSecondString)
+    }
+
     var body: some View {
         VStack {
             topText
@@ -47,7 +52,7 @@ struct ContentView: View {
 
             Spacer()
 
-            Text(isCountingDown ? end.timeIntervalSince(now).minuteSecondString : time.minuteSecondString)
+            timeText
                 .font(.largeTitle)
                 .onReceive(timer) { _ in
                     guard self.isCountingDown else {
@@ -91,17 +96,18 @@ struct ContentView: View {
                 }
                 .alert(isPresented: $showingInfoAlert) {
                     Alert(title: Text("關於🍍計時器"),
-                          message: Text("你有聽過番茄鐘工作法嗎？🍍計時器採用相同的原理，以每 25 分鐘為計時單位。計時期間必須保持專注。轉動錶冠來開始倒數～"),
+                          message: Text("🍍計時器採用簡化版的「番茄鐘工作法」，以每 25 分鐘為工作計時單位。期間必須保持專注。轉動錶冠來開始倒數～"),
                           dismissButton: .cancel(Text("我明白了")))
                 }
             }
         }
         .navigationBarTitle("🍍計時器")
         .focusable(time < limit) { isFocus in
-            if isFocus == false,
-                self.time == limit {
-                self.startTimer()
+            guard isFocus == false,
+                self.time == limit else {
+                    return
             }
+            self.startTimer()
         }
         .digitalCrownRotation($time, from: 0, through: limit, by: limit / 25, sensitivity: .high, isContinuous: false, isHapticFeedbackEnabled: true)
 //        .contextMenu { // This is not working
@@ -142,6 +148,8 @@ struct ContentView: View {
         isCountingDown = false
         time = 0
         WKInterfaceDevice.current().play(.success)
+
+        dataStorage.dates.append(Date())
     }
 
     func setupLocalNotification(timeInterval: TimeInterval) {
@@ -168,16 +176,16 @@ extension TimeInterval {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ContentView()
+            TimerView()
                 .modifier(AppleWatch3_38())
-            ContentView()
+            TimerView()
                 .modifier(AppleWatch3_42())
-            ContentView()
+            TimerView()
                 .modifier(AppleWatch4_40())
-            ContentView()
+            TimerView()
                 .modifier(AppleWatch4_44())
         }
     }
