@@ -17,15 +17,19 @@ let limit: Double = 25 * 60
 #endif
 
 struct ContentView: View {
-    @State var time: TimeInterval = 0
-    @State var isCountingDown = false
-    @State var now = Date()
-    @State var end = Date()
+    @State private var time: TimeInterval = 0
+    @State private var now = Date()
+    @State private var end = Date()
+    @State private var isCountingDown = false
+    @State private var showingInfoAlert = false
+    @State private var showingResetTimerAlert = false
 
     let timer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
 
     var topText: some View {
-        if time == 0 {
+        if isCountingDown {
+            return Text("倒數中，專心做事")
+        } else if time == 0 {
             return Text("轉動錶冠來開始 👉")
         } else if time > 0 && time < limit {
             return Text("繼續轉動錶冠 👉")
@@ -36,29 +40,10 @@ struct ContentView: View {
         }
     }
 
-    var bottomText: some View {
-        if isCountingDown {
-            return Text("倒數中，專心做事")
-        } else {
-            return Text("25 分鐘為一個 🍍")
-        }
-    }
-
     var body: some View {
         VStack {
-            if isCountingDown {
-                Button(action: {
-                    self.stopTimer()
-                }) {
-                    HStack {
-                        Image(systemName: "arrow.clockwise")
-                        Text("取消計時")
-                    }
-                }
-            } else {
-                topText
-                    .padding(.top)
-            }
+            topText
+                .padding(.top)
 
             Spacer()
 
@@ -71,17 +56,47 @@ struct ContentView: View {
                     self.now = Date()
 
                     if self.now >= self.end {
-                        WKInterfaceDevice.current().play(.success)
-                        self.stopTimer()
+                        self.finishTimer()
                     }
             }
 
             Spacer()
 
-            bottomText
-                .lineLimit(3)
-                .multilineTextAlignment(.center)
+            if isCountingDown {
+                Button(action: {
+                    self.showingResetTimerAlert = true
+                }) {
+                    HStack {
+                        Image(systemName: "hand.raised") //"arrow.clockwise")
+                        Text("取消計時")
+                    }
+                }
+                .alert(isPresented: $showingResetTimerAlert) {
+                    Alert(title: Text("取消計時？🤔"),
+                          message: Text("這個🍍會作廢喔"),
+                          primaryButton: .destructive(Text("取消計時"), action: {
+                            self.cancelTimer()
+                          }),
+                          secondaryButton: .cancel(Text("我不要取消"))
+                    )
+                }
+            } else {
+                Button(action: {
+                    self.showingInfoAlert = true
+                }) {
+                    HStack {
+                        Image(systemName: "info.circle")
+                        Text("說明")
+                    }
+                }
+                .alert(isPresented: $showingInfoAlert) {
+                    Alert(title: Text("關於🍍計時器"),
+                          message: Text("你有聽過番茄鐘工作法嗎？🍍計時器採用相同的原理，以每 25 分鐘為計時單位。計時期間必須保持專注。轉動錶冠來開始倒數～"),
+                          dismissButton: .cancel(Text("我明白了")))
+                }
+            }
         }
+        .navigationBarTitle("🍍計時器")
         .focusable(time < limit) { isFocus in
             if isFocus == false,
                 self.time == limit {
@@ -89,47 +104,59 @@ struct ContentView: View {
             }
         }
         .digitalCrownRotation($time, from: 0, through: limit, by: limit / 25, sensitivity: .high, isContinuous: false, isHapticFeedbackEnabled: true)
-        .contextMenu {
-            if isCountingDown {
-                Button(action: {
-                    WKInterfaceDevice.current().play(.failure)
-                    self.stopTimer()
-                }) {
-                    VStack {
-                        Image(systemName: "arrow.clockwise")
-                        Text("取消計時")
-                    }
-                }
-            }
-        }
-        .navigationBarTitle("🍍 計時器")
+//        .contextMenu { // This is not working
+//            if isCountingDown {
+//                Button(action: {
+//                    WKInterfaceDevice.current().play(.failure)
+//                    self.cancelTimer()
+//                }) {
+//                    VStack {
+//                        Image(systemName: "arrow.clockwise")
+//                        Text("取消計時")
+//                    }
+//                }
+//            }
+//        }
     }
 
     func startTimer() {
         print("Go!")
         isCountingDown = true
 
-        let interval = limit
+        let timeInterval = limit
         now = Date()
-        end = now.addingTimeInterval(interval)
+        end = now.addingTimeInterval(timeInterval)
 
+        WKInterfaceDevice.current().play(.start)
+
+        setupLocalNotification(timeInterval: timeInterval)
+    }
+
+    func cancelTimer() {
+        isCountingDown = false
+        time = 0
+        WKInterfaceDevice.current().play(.failure)
+    }
+
+    func finishTimer() {
+        isCountingDown = false
+        time = 0
+        WKInterfaceDevice.current().play(.success)
+    }
+
+    func setupLocalNotification(timeInterval: TimeInterval) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { allow, error in
             guard allow else {
                 return
             }
             let content = UNMutableNotificationContent()
-            content.title = "🍍 計時器"
+            content.title = "🍍計時器"
             content.body = "休息一下，你的時辰到了～"
             content.sound = UNNotificationSound.default
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
             let request = UNNotificationRequest(identifier: "stopTimer", content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         }
-    }
-
-    func stopTimer() {
-        isCountingDown = false
-        time = 0
     }
 }
 
@@ -143,6 +170,15 @@ extension TimeInterval {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Group {
+            ContentView()
+                .modifier(AppleWatch3_38())
+            ContentView()
+                .modifier(AppleWatch3_42())
+            ContentView()
+                .modifier(AppleWatch4_40())
+            ContentView()
+                .modifier(AppleWatch4_44())
+        }
     }
 }

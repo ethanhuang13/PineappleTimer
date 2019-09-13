@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6C890E3B2328E27D007051E6 /* Pineapple Timer.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 6C890E3A2328E27D007051E6 /* Pineapple Timer.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6C85260F232BF772003F1F46 /* PreviewDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85260D232BF772003F1F46 /* PreviewDevice+Extension.swift */; };
+		6C85261C232C048B003F1F46 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C85261E232C048B003F1F46 /* Localizable.strings */; };
+		6C852620232C053C003F1F46 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C852615232C00D3003F1F46 /* InfoPlist.strings */; };
+		6C852621232C057C003F1F46 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C852615232C00D3003F1F46 /* InfoPlist.strings */; };
+		6C890E3B2328E27D007051E6 /* 🍍Timer.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 6C890E3A2328E27D007051E6 /* 🍍Timer.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6C890E412328E27D007051E6 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C890E3F2328E27D007051E6 /* Interface.storyboard */; };
 		6C890E432328E27E007051E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C890E422328E27E007051E6 /* Assets.xcassets */; };
 		6C890E4A2328E27E007051E6 /* PineappleTimer WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6C890E492328E27E007051E6 /* PineappleTimer WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -56,7 +60,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				6C890E3B2328E27D007051E6 /* Pineapple Timer.app in Embed Watch Content */,
+				6C890E3B2328E27D007051E6 /* 🍍Timer.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,8 +68,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6C85260D232BF772003F1F46 /* PreviewDevice+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PreviewDevice+Extension.swift"; sourceTree = "<group>"; };
+		6C852614232C00D3003F1F46 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		6C852616232C00D9003F1F46 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6C85261D232C048B003F1F46 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6C85261F232C048D003F1F46 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		6C890E362328E27D007051E6 /* PineappleTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PineappleTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C890E3A2328E27D007051E6 /* Pineapple Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pineapple Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C890E3A2328E27D007051E6 /* 🍍Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "🍍Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C890E402328E27D007051E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		6C890E422328E27E007051E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C890E442328E27E007051E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -93,6 +102,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C85260B232BF772003F1F46 /* SwiftUI Helper */ = {
+			isa = PBXGroup;
+			children = (
+				6C85260D232BF772003F1F46 /* PreviewDevice+Extension.swift */,
+			);
+			path = "SwiftUI Helper";
+			sourceTree = "<group>";
+		};
 		6C890E2F2328E27D007051E6 = {
 			isa = PBXGroup;
 			children = (
@@ -106,7 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				6C890E362328E27D007051E6 /* PineappleTimer.app */,
-				6C890E3A2328E27D007051E6 /* Pineapple Timer.app */,
+				6C890E3A2328E27D007051E6 /* 🍍Timer.app */,
 				6C890E492328E27E007051E6 /* PineappleTimer WatchKit Extension.appex */,
 			);
 			name = Products;
@@ -118,6 +135,7 @@
 				6C890E3F2328E27D007051E6 /* Interface.storyboard */,
 				6C890E422328E27E007051E6 /* Assets.xcassets */,
 				6C890E442328E27E007051E6 /* Info.plist */,
+				6C852615232C00D3003F1F46 /* InfoPlist.strings */,
 			);
 			path = "PineappleTimer WatchKit App";
 			sourceTree = "<group>";
@@ -125,6 +143,8 @@
 		6C890E4D2328E27E007051E6 /* PineappleTimer WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				6C85261E232C048B003F1F46 /* Localizable.strings */,
+				6C85260B232BF772003F1F46 /* SwiftUI Helper */,
 				6C890E4E2328E27E007051E6 /* ContentView.swift */,
 				6C890E502328E27E007051E6 /* HostingController.swift */,
 				6C890E522328E27E007051E6 /* ExtensionDelegate.swift */,
@@ -181,7 +201,7 @@
 			);
 			name = "PineappleTimer WatchKit App";
 			productName = "PineappleTimer WatchKit App";
-			productReference = 6C890E3A2328E27D007051E6 /* Pineapple Timer.app */;
+			productReference = 6C890E3A2328E27D007051E6 /* 🍍Timer.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
 		6C890E482328E27E007051E6 /* PineappleTimer WatchKit Extension */ = {
@@ -229,6 +249,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hant",
 			);
 			mainGroup = 6C890E2F2328E27D007051E6;
 			productRefGroup = 6C890E372328E27D007051E6 /* Products */;
@@ -247,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C852621232C057C003F1F46 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C890E432328E27E007051E6 /* Assets.xcassets in Resources */,
+				6C852620232C053C003F1F46 /* InfoPlist.strings in Resources */,
 				6C890E412328E27D007051E6 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,6 +287,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C890E5E2328E27F007051E6 /* Preview Assets.xcassets in Resources */,
+				6C85261C232C048B003F1F46 /* Localizable.strings in Resources */,
 				6C890E5B2328E27F007051E6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C890E512328E27E007051E6 /* HostingController.swift in Sources */,
+				6C85260F232BF772003F1F46 /* PreviewDevice+Extension.swift in Sources */,
 				6C890E4F2328E27E007051E6 /* ContentView.swift in Sources */,
 				6C890E552328E27E007051E6 /* NotificationController.swift in Sources */,
 				6C890E532328E27E007051E6 /* ExtensionDelegate.swift in Sources */,
@@ -300,6 +325,24 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		6C852615232C00D3003F1F46 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6C852614232C00D3003F1F46 /* zh-Hant */,
+				6C852616232C00D9003F1F46 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		6C85261E232C048B003F1F46 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6C85261D232C048B003F1F46 /* en */,
+				6C85261F232C048D003F1F46 /* zh-Hant */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		6C890E3F2328E27D007051E6 /* Interface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -315,6 +358,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -361,6 +405,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -374,6 +419,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -414,6 +460,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -481,7 +528,7 @@
 				IBSC_MODULE = PineappleTimer_WatchKit_Extension;
 				INFOPLIST_FILE = "PineappleTimer WatchKit App/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer.watchkitapp;
-				PRODUCT_NAME = "Pineapple Timer";
+				PRODUCT_NAME = "🍍Timer";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -500,7 +547,7 @@
 				IBSC_MODULE = PineappleTimer_WatchKit_Extension;
 				INFOPLIST_FILE = "PineappleTimer WatchKit App/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer.watchkitapp;
-				PRODUCT_NAME = "Pineapple Timer";
+				PRODUCT_NAME = "🍍Timer";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
