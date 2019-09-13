@@ -11,13 +11,13 @@ import SwiftUI
 import UserNotifications
 
 #if DEBUG
-let limit: Double = 25
+let limit: Double = 25 * 60
 #else
-let limit: Double = 25
+let limit: Double = 25 * 60
 #endif
 
 struct ContentView: View {
-    @State var minutes: Double = 0
+    @State var time: TimeInterval = 0
     @State var isCountingDown = false
     @State var now = Date()
     @State var end = Date()
@@ -29,13 +29,13 @@ struct ContentView: View {
             if isCountingDown {
                 Text("倒數中，專心做事")
             } else {
-                if minutes == 0 {
+                if time == 0 {
                     Text("捲動錶冠來開始👉")
                 }
-                if minutes > 0 && minutes < limit {
+                if time > 0 && time < limit {
                     Text("繼續捲動錶冠👉")
                 }
-                if minutes == limit {
+                if time == limit {
                     Text("放開錶冠，開始倒數👌")
                 }
             }
@@ -43,10 +43,10 @@ struct ContentView: View {
             Spacer()
 
             if isCountingDown {
-                Text(end.timeIntervalSince(now).string)
+                Text(end.timeIntervalSince(now).minuteSecondString)
                     .font(.title)
             } else {
-                Text(String(Int(minutes)) + " 分鐘")
+                Text(time.minuteSecondString)
                     .font(.title)
             }
 
@@ -55,20 +55,35 @@ struct ContentView: View {
             Text("我是 🍍 計時器")
                 .font(.headline)
         }
-        .focusable(minutes < limit) { isFocus in
+        .focusable(time < limit) { isFocus in
             if isFocus == false,
-                self.minutes == limit {
+                self.time == limit {
                 self.startTimer()
             }
         }
-        .digitalCrownRotation($minutes, from: 0, through: limit, by: limit / 25, sensitivity: .medium, isContinuous: false, isHapticFeedbackEnabled: true)
+        .digitalCrownRotation($time, from: 0, through: limit, by: limit / 60 / 25, sensitivity: .high, isContinuous: false, isHapticFeedbackEnabled: true)
         .onReceive(timer) { _ in
-            if self.isCountingDown == true {
-                self.now = Date()
+            guard self.isCountingDown else {
+                return
             }
+            self.now = Date()
 
             if self.now >= self.end {
+                WKInterfaceDevice.current().play(.success)
                 self.stopTimer()
+            }
+        }
+        .contextMenu {
+            if isCountingDown {
+                Button(action: {
+                    WKInterfaceDevice.current().play(.failure)
+                    self.stopTimer()
+                }) {
+                    VStack {
+                        Image(systemName: "arrow.clockwise")
+                        Text("取消計時")
+                    }
+                }
             }
         }
     }
@@ -77,9 +92,9 @@ struct ContentView: View {
         print("Go!")
         isCountingDown = true
 
-        let interval = limit * 60
+        let interval = limit
         now = Date()
-        end = Date().addingTimeInterval(interval)
+        end = now.addingTimeInterval(interval)
 
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { allow, error in
             guard allow else {
@@ -87,7 +102,8 @@ struct ContentView: View {
             }
             let content = UNMutableNotificationContent()
             content.title = "🍍 計時器"
-            content.body = "時辰到了～"
+            content.body = "休息一下，你的時辰到了～"
+            content.sound = UNNotificationSound.default
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)
             let request = UNNotificationRequest(identifier: "stopTimer", content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
@@ -96,18 +112,12 @@ struct ContentView: View {
 
     func stopTimer() {
         isCountingDown = false
-        minutes = 0
+        time = 0
     }
 }
 
-var dateFormatter: DateFormatter = {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "mm:ss"
-    return dateFormatter
-}()
-
 extension TimeInterval {
-    var string: String {
+    var minuteSecondString: String {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.minute, .second]
         return formatter.string(from: self) ?? ""
