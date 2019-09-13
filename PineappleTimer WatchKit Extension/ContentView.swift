@@ -24,36 +24,63 @@ struct ContentView: View {
 
     let timer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
 
+    var topText: some View {
+        if time == 0 {
+            return Text("轉動錶冠來開始 👉")
+        } else if time > 0 && time < limit {
+            return Text("繼續轉動錶冠 👉")
+        } else if time == limit {
+            return Text("放開錶冠，開始倒數 👌")
+        } else {
+            return Text(" ")
+        }
+    }
+
+    var bottomText: some View {
+        if isCountingDown {
+            return Text("倒數中，專心做事")
+        } else {
+            return Text("25 分鐘為一個 🍍")
+        }
+    }
+
     var body: some View {
         VStack {
             if isCountingDown {
-                Text("倒數中，專心做事")
+                Button(action: {
+                    self.stopTimer()
+                }) {
+                    HStack {
+                        Image(systemName: "arrow.clockwise")
+                        Text("取消計時")
+                    }
+                }
             } else {
-                if time == 0 {
-                    Text("捲動錶冠來開始👉")
-                }
-                if time > 0 && time < limit {
-                    Text("繼續捲動錶冠👉")
-                }
-                if time == limit {
-                    Text("放開錶冠，開始倒數👌")
-                }
+                topText
+                    .padding(.top)
             }
 
             Spacer()
 
-            if isCountingDown {
-                Text(end.timeIntervalSince(now).minuteSecondString)
-                    .font(.title)
-            } else {
-                Text(time.minuteSecondString)
-                    .font(.title)
+            Text(isCountingDown ? end.timeIntervalSince(now).minuteSecondString : time.minuteSecondString)
+                .font(.largeTitle)
+                .onReceive(timer) { _ in
+                    guard self.isCountingDown else {
+                        return
+                    }
+                    self.now = Date()
+
+                    if self.now >= self.end {
+                        WKInterfaceDevice.current().play(.success)
+                        self.stopTimer()
+                    }
             }
 
             Spacer()
 
-            Text("我是 🍍 計時器")
-                .font(.headline)
+            bottomText
+                .lineLimit(3)
+                .multilineTextAlignment(.center)
         }
         .focusable(time < limit) { isFocus in
             if isFocus == false,
@@ -61,18 +88,7 @@ struct ContentView: View {
                 self.startTimer()
             }
         }
-        .digitalCrownRotation($time, from: 0, through: limit, by: limit / 60 / 25, sensitivity: .high, isContinuous: false, isHapticFeedbackEnabled: true)
-        .onReceive(timer) { _ in
-            guard self.isCountingDown else {
-                return
-            }
-            self.now = Date()
-
-            if self.now >= self.end {
-                WKInterfaceDevice.current().play(.success)
-                self.stopTimer()
-            }
-        }
+        .digitalCrownRotation($time, from: 0, through: limit, by: limit / 25, sensitivity: .high, isContinuous: false, isHapticFeedbackEnabled: true)
         .contextMenu {
             if isCountingDown {
                 Button(action: {
@@ -86,6 +102,7 @@ struct ContentView: View {
                 }
             }
         }
+        .navigationBarTitle("🍍 計時器")
     }
 
     func startTimer() {
