@@ -5,3 +5,27 @@
   Created by Ethanhuang on 9/14/19.
   Copyright © 2019 Elaborapp Co., Ltd. All rights reserved.
 */
+
+"🍍Timer" = "🍍計時器";
+
+"Counting down. Focus." = "倒數中，專心做事";
+"Rotate Digital Crown 👉" = "轉動錶冠來開始 👉";
+"Keep rotating 👉" = "繼續轉動錶冠 👉";
+"Release it👌" = "放開錶冠，開始倒數 👌";
+
+"Cancel Timer" = "取消計時";
+"Cancel Timer?" = "取消計時？🤔";
+"This 🍍 will be cancelled." = "這個🍍會作廢喔";
+"Cancel 🍍" = "取消 🍍";
+"Don't Cancel" = "我不要取消";
+
+"Information" = "說明";
+"About 🍍Timer" = "關於🍍計時器";
+"Every 🍍 is..." = "\n每個🍍是一個 25 分鐘的工作計時單位。\n\n計時期間，保持專注做好一件事情。\n\n結束之後休息一下，再開始下一個。";
+"I See" = "我知道了";
+
+"No history" = "沒有歷史紀錄";
+"Clear All" = "清除所有紀錄";
+"🍍History" = "🍍歷史紀錄";
+
+"Take a break, then start another one." = "休息一下，再接再厲。";

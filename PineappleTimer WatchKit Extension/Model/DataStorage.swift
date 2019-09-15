@@ -9,7 +9,7 @@
 import Foundation
 
 #if DEBUG
-let limit: Double = 0.3 * 60
+let limit: Double = 25 * 60
 #else
 let limit: Double = 25 * 60
 #endif

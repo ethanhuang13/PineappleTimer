@@ -13,7 +13,7 @@ struct ListView: View {
 
     var body: some View {
         if dataStorage.dates.isEmpty {
-            return AnyView(Text("沒有歷史紀錄"))
+            return AnyView(Text("No history"))
         } else {
             return AnyView(
                 List {
@@ -29,11 +29,11 @@ struct ListView: View {
                     }) {
                         VStack {
                             Image(systemName: "trash")
-                            Text("清除所有紀錄")
+                            Text("Clear All")
                         }
                     }
                 })
-                .navigationBarTitle("🍍歷史紀錄")
+                .navigationBarTitle("🍍History")
             )
         }
     }

@@ -73,15 +73,15 @@ func requestNotificationPermissions() {
     }
 }
 
-func scheduleLocalNotification() {
+private func scheduleLocalNotification() {
     guard dataStorage.isCountingDown else {
         return
     }
 
     let timeInterval = dataStorage.end.timeIntervalSince(Date())
     let content = UNMutableNotificationContent()
-    content.title = "🍍計時器"
-    content.body = "休息一下，你的時辰到了～"
+    content.title = NSLocalizedString("🍍Timer", comment: "")
+    content.body = NSLocalizedString("Take a break, then start another one.", comment: "")
     content.sound = UNNotificationSound.default
     let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
     let request = UNNotificationRequest(identifier: "stopTimer", content: content, trigger: trigger)

@@ -21,13 +21,13 @@ struct TimerView: View {
 
     var topText: some View {
         if dataStorage.isCountingDown {
-            return Text("倒數中，專心做事") // TODO: 調整不同倒數階段顯示的文字
+            return Text("Counting down. Focus.") // TODO: 調整不同倒數階段顯示的文字
         } else if time == 0 {
-            return Text("轉動錶冠來開始 👉")
+            return Text("Rotate Digital Crown 👉")
         } else if time > 0 && time < limit {
-            return Text("繼續轉動錶冠 👉")
+            return Text("Keep rotating 👉")
         } else if time == limit {
-            return Text("放開錶冠，開始倒數 👌")
+            return Text("Release it👌")
         } else {
             return Text(" ")
         }
@@ -65,16 +65,16 @@ struct TimerView: View {
                 }) {
                     HStack {
                         Image(systemName: "hand.raised") //"arrow.clockwise")
-                        Text("取消計時")
+                        Text("Cancel Timer")
                     }
                 }
                 .alert(isPresented: $showingResetTimerAlert) {
-                    Alert(title: Text("取消計時？🤔"),
-                          message: Text("這個🍍會作廢喔"),
-                          primaryButton: .destructive(Text("取消計時"), action: {
+                    Alert(title: Text("Cancel Timer?"),
+                          message: Text("This 🍍 will be cancelled."),
+                          primaryButton: .destructive(Text("Cancel 🍍"), action: {
                             self.cancelTimer()
                           }),
-                          secondaryButton: .cancel(Text("我不要取消"))
+                          secondaryButton: .cancel(Text("Don't Cancel"))
                     )
                 }
             } else {
@@ -83,17 +83,18 @@ struct TimerView: View {
                 }) {
                     HStack {
                         Image(systemName: "info.circle")
-                        Text("說明")
+                        Text("Information")
                     }
                 }
                 .alert(isPresented: $showingInfoAlert) {
-                    Alert(title: Text("關於🍍計時器"),
-                          message: Text("🍍計時器採用簡化版的「番茄鐘工作法」，以每 25 分鐘為工作計時單位。每個🍍期間，保持專注做好一件事情。     關閉通知或啟用勿擾模式來避免干擾。轉動錶冠來開始倒數～"),
-                          dismissButton: .cancel(Text("我明白了")))
+                    Alert(title: Text("About 🍍Timer"),
+                          message: Text("Every 🍍 is...")
+                            .font(.caption),
+                          dismissButton: .cancel(Text("I See")))
                 }
             }
         }
-        .navigationBarTitle("🍍計時器")
+        .navigationBarTitle("🍍Timer")
         .focusable(time < limit) { isFocus in
             guard isFocus == false,
                 self.time == limit else {
