@@ -16,6 +16,10 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         // Perform any final initialization of your application.
         let dates: [Date] = (UserDefaults.standard.array(forKey: datesKey) as? [Date]) ?? []
         dataStorage.load(dates)
+
+        #if DEBUG
+        dataStorage.load(previewDates)
+        #endif
     }
 
     func applicationDidBecomeActive() {

@@ -11,7 +11,7 @@ import SwiftUI
 import UserNotifications
 
 #if DEBUG
-let limit: Double = 25 * 60
+let limit: Double = 25 // * 60
 #else
 let limit: Double = 25 * 60
 #endif
@@ -29,7 +29,7 @@ struct TimerView: View {
 
     var topText: some View {
         if isCountingDown {
-            return Text("倒數中，專心做事")
+            return Text("倒數中，專心做事") // TODO: 調整不同倒數階段顯示的文字
         } else if time == 0 {
             return Text("轉動錶冠來開始 👉")
         } else if time > 0 && time < limit {
@@ -96,7 +96,7 @@ struct TimerView: View {
                 }
                 .alert(isPresented: $showingInfoAlert) {
                     Alert(title: Text("關於🍍計時器"),
-                          message: Text("🍍計時器採用簡化版的「番茄鐘工作法」，以每 25 分鐘為工作計時單位。期間必須保持專注。轉動錶冠來開始倒數～"),
+                          message: Text("🍍計時器採用簡化版的「番茄鐘工作法」，以每 25 分鐘為工作計時單位。每個🍍期間，保持專注做好一件事情。     關閉通知或啟用勿擾模式來避免干擾。轉動錶冠來開始倒數～"),
                           dismissButton: .cancel(Text("我明白了")))
                 }
             }
@@ -142,6 +142,7 @@ struct TimerView: View {
         isCountingDown = false
         time = 0
         WKInterfaceDevice.current().play(.failure)
+        cancelLocalNotification()
     }
 
     func finishTimer() {
@@ -166,6 +167,10 @@ struct TimerView: View {
             UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         }
     }
+
+    func cancelLocalNotification() {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["stopTimer"])
+    }
 }
 
 extension TimeInterval {
@@ -184,9 +189,9 @@ struct TimerView_Previews: PreviewProvider {
             TimerView()
                 .modifier(AppleWatch3_42())
             TimerView()
-                .modifier(AppleWatch4_40())
+                .modifier(AppleWatch5_40())
             TimerView()
-                .modifier(AppleWatch4_44())
+                .modifier(AppleWatch5_44())
         }
     }
 }

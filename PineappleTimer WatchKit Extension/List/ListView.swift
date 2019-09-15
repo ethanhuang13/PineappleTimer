@@ -16,17 +16,12 @@ struct ListView: View {
             return AnyView(Text("沒有歷史紀錄"))
         } else {
             return AnyView(
-                List(dataStorage.dates.datedRecords(), id: \.date) { record in
-                    VStack(alignment: .leading) {
-                        Text(record.dateString)
-                            .font(.headline)
-
-                        Text(record.🍍String)
-                            .font(.subheadline)
-                            .lineLimit(3)
+                List {
+                    ForEach(dataStorage.dates.datedRecords(), id: \.date) { record in
+                        ListItem(record: record)
                     }
-                    .padding(.vertical)
                 }
+                .listStyle(CarouselListStyle())
                 .contextMenu(menuItems: {
                     Button(action: {
                         WKInterfaceDevice.current().play(.success)
@@ -41,6 +36,38 @@ struct ListView: View {
                 .navigationBarTitle("🍍歷史紀錄")
             )
         }
+    }
+}
+
+struct ListItem: View {
+    let record: DatedRecord
+    var body: some View {
+        NavigationLink(destination:
+            RecordDetailView(record: record)
+        ) {
+            VStack(alignment: .leading) {
+                Text(record.dateString)
+                    .font(.headline)
+                Text(record.🍍String)
+                    .font(.subheadline)
+                    .lineLimit(3)
+            }
+        }
+        .padding(.vertical)
+    }
+}
+
+struct RecordDetailView: View {
+    let record: DatedRecord
+    var body: some View {
+        HStack(alignment: .firstTextBaseline) {
+            Text("🍍")
+            Image(systemName: "multiply")
+            Text("\(record.count)")
+        }
+        .font(.title)
+        .lineLimit(10)
+        .navigationBarTitle(record.dateString)
     }
 }
 
@@ -63,20 +90,12 @@ let previewDates: [Date] = [
     Date().addingTimeInterval(-26000),
     Date().addingTimeInterval(-28000),
     Date().addingTimeInterval(-30000),
-    Date().addingTimeInterval(-32000),
-    Date().addingTimeInterval(-34000),
-    Date().addingTimeInterval(-36000),
-    Date().addingTimeInterval(-38000),
-    Date().addingTimeInterval(-40000),
-    Date().addingTimeInterval(-42000),
-    Date().addingTimeInterval(-44000),
-    Date().addingTimeInterval(-46000),
-    Date().addingTimeInterval(-48000),
-    Date().addingTimeInterval(-50000),
-    Date().addingTimeInterval(-52000),
-    Date().addingTimeInterval(-54000),
-    Date().addingTimeInterval(-56000),
-    Date().addingTimeInterval(-58000)
+    Date().addingTimeInterval(-86400),
+    Date().addingTimeInterval(-86400 * 2),
+    Date().addingTimeInterval(-86400 * 3),
+    Date().addingTimeInterval(-86400 * 4),
+    Date().addingTimeInterval(-86400 * 5),
+    Date().addingTimeInterval(-86400 * 6),
 ]
 
 var previewDataStorage: DataStorage {
@@ -96,10 +115,14 @@ struct ListView_Previews: PreviewProvider {
                 .modifier(AppleWatch3_42())
             ListView()
                 .environmentObject(previewDataStorage)
-                .modifier(AppleWatch4_40())
+                .modifier(AppleWatch5_40())
             ListView()
                 .environmentObject(previewDataStorage)
-                .modifier(AppleWatch4_44())
+                .modifier(AppleWatch5_44())
+
+            ListItem(record: dataStorage.dates.datedRecords()[0])
+
+            RecordDetailView(record: dataStorage.dates.datedRecords()[0])
         }
     }
 }
