@@ -10,25 +10,17 @@ import Combine
 import SwiftUI
 import UserNotifications
 
-#if DEBUG
-let limit: Double = 25 // * 60
-#else
-let limit: Double = 25 * 60
-#endif
-
 struct TimerView: View {
     @EnvironmentObject var dataStorage: DataStorage
     @State private var time: TimeInterval = 0
     @State private var now = Date()
-    @State private var end = Date()
-    @State private var isCountingDown = false
     @State private var showingInfoAlert = false
     @State private var showingResetTimerAlert = false
 
     let timer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
 
     var topText: some View {
-        if isCountingDown {
+        if dataStorage.isCountingDown {
             return Text("倒數中，專心做事") // TODO: 調整不同倒數階段顯示的文字
         } else if time == 0 {
             return Text("轉動錶冠來開始 👉")
@@ -42,7 +34,7 @@ struct TimerView: View {
     }
 
     var timeText: some View {
-        Text(isCountingDown ? end.timeIntervalSince(now).minuteSecondString : time.minuteSecondString)
+        Text(dataStorage.isCountingDown ? dataStorage.end.timeIntervalSince(now).minuteSecondString : time.minuteSecondString)
     }
 
     var body: some View {
@@ -55,19 +47,19 @@ struct TimerView: View {
             timeText
                 .font(.largeTitle)
                 .onReceive(timer) { _ in
-                    guard self.isCountingDown else {
+                    guard self.dataStorage.isCountingDown else {
                         return
                     }
                     self.now = Date()
 
-                    if self.now >= self.end {
+                    if self.now >= self.dataStorage.end {
                         self.finishTimer()
                     }
             }
 
             Spacer()
 
-            if isCountingDown {
+            if dataStorage.isCountingDown {
                 Button(action: {
                     self.showingResetTimerAlert = true
                 }) {
@@ -127,49 +119,44 @@ struct TimerView: View {
 
     func startTimer() {
         print("Go!")
-        isCountingDown = true
+        dataStorage.isCountingDown = true
 
         let timeInterval = limit
         now = Date()
-        end = now.addingTimeInterval(timeInterval)
+        dataStorage.end = now.addingTimeInterval(timeInterval)
 
         WKInterfaceDevice.current().play(.start)
 
-        setupLocalNotification(timeInterval: timeInterval)
+        requestNotificationPermissions()
+
+        reloadComplications()
     }
 
     func cancelTimer() {
-        isCountingDown = false
+        dataStorage.isCountingDown = false
         time = 0
         WKInterfaceDevice.current().play(.failure)
         cancelLocalNotification()
+
+        reloadComplications()
     }
 
     func finishTimer() {
-        isCountingDown = false
+        dataStorage.isCountingDown = false
         time = 0
         WKInterfaceDevice.current().play(.success)
 
         dataStorage.dates.append(Date())
+
+        reloadComplications()
     }
 
-    func setupLocalNotification(timeInterval: TimeInterval) {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { allow, error in
-            guard allow else {
-                return
-            }
-            let content = UNMutableNotificationContent()
-            content.title = "🍍計時器"
-            content.body = "休息一下，你的時辰到了～"
-            content.sound = UNNotificationSound.default
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
-            let request = UNNotificationRequest(identifier: "stopTimer", content: content, trigger: trigger)
-            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    func reloadComplications() {
+        let server = CLKComplicationServer.sharedInstance()
+        for complication in server.activeComplications ?? [] {
+            server.reloadTimeline(for: complication)
+            print("Reload complication: \(complication.family.rawValue)")
         }
-    }
-
-    func cancelLocalNotification() {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["stopTimer"])
     }
 }
 

@@ -8,26 +8,30 @@
 
 import ClockKit
 
-let startDate = Date().addingTimeInterval(-15 * 60)
-let endDate = Date().addingTimeInterval(10 * 60)
+// See cheat sheet for all complication style https://theswiftdev.com/2016/04/28/clockkit-complications-cheat-sheet/
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
     
     // MARK: - Timeline Configuration
     
     func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
-//        handler([.forward, .backward])
         handler([])
     }
     
     func getTimelineStartDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
-//        handler(stardDate)
-        handler(nil)
+        if dataStorage.isCountingDown {
+            handler(dataStorage.end.addingTimeInterval(-limit))
+        } else {
+            handler(nil)
+        }
     }
     
     func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
-//        handler(endDate)
-        handler(nil)
+        if dataStorage.isCountingDown {
+            handler(dataStorage.end)
+        } else {
+            handler(nil)
+        }
     }
     
     func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void) {
@@ -39,22 +43,16 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
         // Call the handler with the current timeline entry
 
-        if let template = self.currentTemplate(family: complication.family) {
+        if dataStorage.isCountingDown,
+            let template = self.currentTemplate(family: complication.family) {
+            let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+            handler(entry)
+        } else if let template = self.placeholderTemplate(family: complication.family) {
             let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
             handler(entry)
         } else {
             handler(nil)
         }
-    }
-    
-    func getTimelineEntries(for complication: CLKComplication, before date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
-        // Call the handler with the timeline entries prior to the given date
-        handler(nil)
-    }
-    
-    func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
-        // Call the handler with the timeline entries after to the given date
-        handler(nil)
     }
     
     // MARK: - Placeholder Templates
@@ -69,40 +67,53 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func placeholderTemplate(family: CLKComplicationFamily) -> CLKComplicationTemplate? {
         let appNameTextProvider = CLKSimpleTextProvider(text: "🍍計時器")
         let simpleTextProvider = CLKSimpleTextProvider(text: "🍍")
-        let gaugeProvider = CLKSimpleGaugeProvider(style: .fill, gaugeColor: .yellow, fillFraction: 1)
+        let gaugeProvider = CLKSimpleGaugeProvider(style: .fill, gaugeColor: .yellow, fillFraction: 0)
+        let tintColor = UIColor.yellow
 
         switch family {
-        case .modularSmall:
-            let template = CLKComplicationTemplateModularSmallRingText()
+        case .circularSmall:
+            let template = CLKComplicationTemplateCircularSmallSimpleText()
             template.textProvider = simpleTextProvider
-            template.tintColor = .yellow
-            template.ringStyle = .closed
+            template.tintColor = tintColor
             return template
+
+        case .extraLarge:
+            let template = CLKComplicationTemplateExtraLargeSimpleText()
+            template.textProvider = simpleTextProvider
+            template.tintColor = tintColor
+            return template
+
+        case .modularSmall:
+            let template = CLKComplicationTemplateModularSmallSimpleText()
+            template.textProvider = simpleTextProvider
+            template.tintColor = tintColor
+            return template
+
         case .modularLarge:
             let template = CLKComplicationTemplateModularLargeTallBody()
             template.headerTextProvider = appNameTextProvider
             template.bodyTextProvider = simpleTextProvider
+            template.tintColor = tintColor
             return template
+
         case .utilitarianSmall:
-            let template = CLKComplicationTemplateUtilitarianSmallRingText()
+            let template = CLKComplicationTemplateUtilitarianSmallFlat()
             template.textProvider = simpleTextProvider
+            template.tintColor = tintColor
             return template
+
         case .utilitarianSmallFlat:
             let template = CLKComplicationTemplateUtilitarianSmallFlat()
             template.textProvider = simpleTextProvider
+            template.tintColor = tintColor
             return template
+
         case .utilitarianLarge:
             let template = CLKComplicationTemplateUtilitarianLargeFlat()
-            template.textProvider = simpleTextProvider
+            template.textProvider = appNameTextProvider
+            template.tintColor = tintColor
             return template
-        case .circularSmall:
-            let template = CLKComplicationTemplateCircularSmallRingText()
-            template.textProvider = simpleTextProvider
-            return template
-        case .extraLarge:
-            let template = CLKComplicationTemplateExtraLargeRingText()
-            template.textProvider = simpleTextProvider
-            return template
+
         case .graphicCorner:
             let template = CLKComplicationTemplateGraphicCornerGaugeText()
             template.outerTextProvider = simpleTextProvider
@@ -110,23 +121,27 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             template.trailingTextProvider = CLKSimpleTextProvider(text: "25")
             template.gaugeProvider = gaugeProvider
             return template
-        case .graphicBezel:
-            let template = CLKComplicationTemplateGraphicBezelCircularText()
-            let circularTemplate = self.currentTemplate(family: .graphicCircular)
-            template.circularTemplate = circularTemplate as! CLKComplicationTemplateGraphicCircular
-            template.textProvider = simpleTextProvider
-            return template
+
         case .graphicCircular:
             let template = CLKComplicationTemplateGraphicCircularClosedGaugeText()
             template.centerTextProvider = simpleTextProvider
             template.gaugeProvider = gaugeProvider
             return template
+
+        case .graphicBezel:
+            let template = CLKComplicationTemplateGraphicBezelCircularText()
+            let circularTemplate = self.placeholderTemplate(family: .graphicCircular)
+            template.circularTemplate = circularTemplate as! CLKComplicationTemplateGraphicCircular
+            template.textProvider = simpleTextProvider
+            return template
+
         case .graphicRectangular:
             let template = CLKComplicationTemplateGraphicRectangularTextGauge()
             template.headerTextProvider = appNameTextProvider
-            template.body1TextProvider = CLKRelativeDateTextProvider(date: endDate, style: .naturalFull, units: [.minute, .second])
+            template.body1TextProvider = CLKRelativeDateTextProvider(date: dataStorage.end, style: .naturalFull, units: [.minute, .second])
             template.gaugeProvider = gaugeProvider
             return template
+
         @unknown default:
             return nil
         }
@@ -134,47 +149,59 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 
     func currentTemplate(family: CLKComplicationFamily) -> CLKComplicationTemplate? {
         let appNameTextProvider = CLKSimpleTextProvider(text: "🍍計時器")
-        let relativeDateTextProvider = CLKRelativeDateTextProvider(date: endDate, style: .offsetShort, units: [.minute])
-        let longRelativeDateTextProvider = CLKRelativeDateTextProvider(date: endDate, style: .naturalFull, units: [.minute, .second])
+        let relativeDateTextProvider = CLKRelativeDateTextProvider(date: dataStorage.end, style: .offsetShort, units: [.minute])
+        let longRelativeDateTextProvider = CLKRelativeDateTextProvider(date: dataStorage.end, style: .naturalFull, units: [.minute, .second])
         let simpleTextProvider = CLKSimpleTextProvider(text: "🍍")
-        let gaugeProvider = CLKTimeIntervalGaugeProvider(style: .fill, gaugeColors: [.green, .yellow, .orange], gaugeColorLocations: [0, 0.2, 0.8], start: startDate, end: endDate)
-        let fillFraction = Float(endDate.timeIntervalSince(Date()) / endDate.timeIntervalSince(startDate))
+        let gaugeProvider = CLKTimeIntervalGaugeProvider(style: .fill, gaugeColors: [.green, .yellow, .orange], gaugeColorLocations: [0, 0.2, 0.8], start: dataStorage.end.addingTimeInterval(-limit), end: dataStorage.end)
+        let tintColor = UIColor.yellow
 
         switch family {
-        case .modularSmall:
-            let template = CLKComplicationTemplateModularSmallRingText()
-            template.textProvider = relativeDateTextProvider
-            template.fillFraction = fillFraction
-            template.tintColor = .yellow
-            template.ringStyle = .closed
+        case .circularSmall:
+            let template = CLKComplicationTemplateCircularSmallStackText()
+            template.line1TextProvider = simpleTextProvider
+            template.line2TextProvider = relativeDateTextProvider
+            template.tintColor = tintColor
             return template
+
+        case .extraLarge:
+            let template = CLKComplicationTemplateExtraLargeStackText()
+            template.line1TextProvider = simpleTextProvider
+            template.line2TextProvider = longRelativeDateTextProvider
+            template.tintColor = tintColor
+            return template
+
+        case .modularSmall:
+            let template = CLKComplicationTemplateModularSmallStackText()
+            template.line1TextProvider = simpleTextProvider
+            template.line2TextProvider = relativeDateTextProvider
+            template.tintColor = tintColor
+            return template
+
         case .modularLarge:
             let template = CLKComplicationTemplateModularLargeTallBody()
             template.headerTextProvider = appNameTextProvider
             template.bodyTextProvider = longRelativeDateTextProvider
+            template.tintColor = tintColor
             return template
+
         case .utilitarianSmall:
-            let template = CLKComplicationTemplateUtilitarianSmallRingText()
+            let template = CLKComplicationTemplateUtilitarianSmallFlat()
             template.textProvider = relativeDateTextProvider
-            template.fillFraction = fillFraction
+            template.tintColor = tintColor
             return template
+
         case .utilitarianSmallFlat:
             let template = CLKComplicationTemplateUtilitarianSmallFlat()
             template.textProvider = relativeDateTextProvider
+            template.tintColor = tintColor
             return template
+
         case .utilitarianLarge:
             let template = CLKComplicationTemplateUtilitarianLargeFlat()
             template.textProvider = longRelativeDateTextProvider
+            template.tintColor = tintColor
             return template
-        case .circularSmall:
-            let template = CLKComplicationTemplateCircularSmallRingText()
-            template.textProvider = relativeDateTextProvider
-            template.fillFraction = fillFraction
-            return template
-        case .extraLarge:
-            let template = CLKComplicationTemplateExtraLargeRingText()
-            template.textProvider = relativeDateTextProvider
-            return template
+
         case .graphicCorner:
             let template = CLKComplicationTemplateGraphicCornerGaugeText()
             template.outerTextProvider = simpleTextProvider
@@ -182,23 +209,27 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             template.trailingTextProvider = CLKSimpleTextProvider(text: "25")
             template.gaugeProvider = gaugeProvider
             return template
+
+        case .graphicCircular:
+            let template = CLKComplicationTemplateGraphicCircularClosedGaugeText()
+            template.centerTextProvider = simpleTextProvider
+            template.gaugeProvider = gaugeProvider
+            return template
+
         case .graphicBezel:
             let template = CLKComplicationTemplateGraphicBezelCircularText()
             let circularTemplate = self.currentTemplate(family: .graphicCircular)
             template.circularTemplate = circularTemplate as! CLKComplicationTemplateGraphicCircular
             template.textProvider = longRelativeDateTextProvider
             return template
-        case .graphicCircular:
-            let template = CLKComplicationTemplateGraphicCircularClosedGaugeText()
-            template.centerTextProvider = simpleTextProvider
-            template.gaugeProvider = gaugeProvider
-            return template
+
         case .graphicRectangular:
             let template = CLKComplicationTemplateGraphicRectangularTextGauge()
             template.headerTextProvider = appNameTextProvider
-            template.body1TextProvider = CLKRelativeDateTextProvider(date: endDate, style: .naturalFull, units: [.minute, .second])
+            template.body1TextProvider = CLKRelativeDateTextProvider(date: dataStorage.end, style: .naturalFull, units: [.minute, .second])
             template.gaugeProvider = gaugeProvider
             return template
+
         @unknown default:
             return nil
         }

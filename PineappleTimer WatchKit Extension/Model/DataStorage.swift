@@ -8,6 +8,12 @@
 
 import Foundation
 
+#if DEBUG
+let limit: Double = 0.3 * 60
+#else
+let limit: Double = 25 * 60
+#endif
+
 let datesKey = "pineapple.dates"
 
 class DataStorage: ObservableObject {
@@ -16,6 +22,10 @@ class DataStorage: ObservableObject {
             save()
         }
     }
+
+    @Published var end = Date()
+    var start: Date { end.addingTimeInterval(limit) }
+    @Published var isCountingDown = false
 
     /// Call when appDidFinishLaunching
     func load(_ dates: [Date]) {
