@@ -19,7 +19,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         dataStorage.load(dates)
 
         #if DEBUG
-        dataStorage.load(previewDates)
+//        dataStorage.load(previewDates)
         #endif
     }
 
