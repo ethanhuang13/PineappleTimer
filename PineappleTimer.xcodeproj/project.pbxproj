@@ -540,6 +540,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -564,6 +565,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -583,6 +585,7 @@
 				DEVELOPMENT_TEAM = SE9N6X5V7C;
 				IBSC_MODULE = PineappleTimer_WatchKit_Extension;
 				INFOPLIST_FILE = "PineappleTimer WatchKit App/Info.plist";
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer.watchkitapp;
 				PRODUCT_NAME = "🍍Timer";
 				SDKROOT = watchos;
@@ -602,6 +605,7 @@
 				DEVELOPMENT_TEAM = SE9N6X5V7C;
 				IBSC_MODULE = PineappleTimer_WatchKit_Extension;
 				INFOPLIST_FILE = "PineappleTimer WatchKit App/Info.plist";
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer.watchkitapp;
 				PRODUCT_NAME = "🍍Timer";
 				SDKROOT = watchos;
@@ -618,7 +622,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SE9N6X5V7C;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -631,7 +635,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SE9N6X5V7C;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.elaborapp.PineappleTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
