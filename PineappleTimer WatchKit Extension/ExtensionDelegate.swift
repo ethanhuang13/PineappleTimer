@@ -32,6 +32,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, etc.
         scheduleLocalNotification()
+        scheduleBackgroundRefreshTask()
     }
 
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
@@ -41,9 +42,12 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
             switch task {
             case let backgroundTask as WKApplicationRefreshBackgroundTask:
                 // Be sure to complete the background task once you’re done.
-                backgroundTask.setTaskCompletedWithSnapshot(false)
+                reloadComplications()
+                print("backgroundTask completed")
+                backgroundTask.setTaskCompletedWithSnapshot(true)
             case let snapshotTask as WKSnapshotRefreshBackgroundTask:
                 // Snapshot tasks have a unique completion call, make sure to set your expiration date
+                print("snapshotTask completed. reasonForSnapshot: \(snapshotTask.reasonForSnapshot.rawValue)")
                 snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
             case let connectivityTask as WKWatchConnectivityRefreshBackgroundTask:
                 // Be sure to complete the connectivity task once you’re done.
@@ -88,6 +92,22 @@ private func scheduleLocalNotification() {
     UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
 }
 
+private func scheduleBackgroundRefreshTask() {
+    guard dataStorage.isCountingDown else {
+        return
+    }
+
+    WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: dataStorage.end.addingTimeInterval(1), userInfo: nil) { error in }
+}
+
 func cancelLocalNotification() {
     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["stopTimer"])
+}
+
+func reloadComplications() {
+    let server = CLKComplicationServer.sharedInstance()
+    for complication in server.activeComplications ?? [] {
+        server.reloadTimeline(for: complication)
+        print("Reload complication: \(complication.family.rawValue)")
+    }
 }

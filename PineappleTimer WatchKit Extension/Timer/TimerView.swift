@@ -149,14 +149,8 @@ struct TimerView: View {
 
         dataStorage.dates.append(Date())
 
-        reloadComplications()
-    }
-
-    func reloadComplications() {
-        let server = CLKComplicationServer.sharedInstance()
-        for complication in server.activeComplications ?? [] {
-            server.reloadTimeline(for: complication)
-            print("Reload complication: \(complication.family.rawValue)")
+        if WKExtension.shared().applicationState == .active {
+            reloadComplications()
         }
     }
 }

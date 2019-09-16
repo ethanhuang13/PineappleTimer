@@ -15,7 +15,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     // MARK: - Timeline Configuration
     
     func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
-        handler([])
+        handler([.forward])
     }
     
     func getTimelineStartDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
@@ -54,6 +54,17 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             handler(nil)
         }
     }
+
+    func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
+        if dataStorage.isCountingDown,
+            date > dataStorage.end,
+            let template = self.placeholderTemplate(family: complication.family) {
+            let entry = CLKComplicationTimelineEntry(date: date, complicationTemplate: template)
+            handler([entry])
+        } else {
+            handler(nil)
+        }
+    }
     
     // MARK: - Placeholder Templates
     
@@ -65,7 +76,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
 
     func placeholderTemplate(family: CLKComplicationFamily) -> CLKComplicationTemplate? {
-        let appNameTextProvider = CLKSimpleTextProvider(text: "🍍計時器")
+        let appNameTextProvider = CLKSimpleTextProvider(text: "🍍Timer")
         let simpleTextProvider = CLKSimpleTextProvider(text: "🍍")
         let gaugeProvider = CLKSimpleGaugeProvider(style: .fill, gaugeColor: .yellow, fillFraction: 0)
         let tintColor = UIColor.yellow
@@ -148,7 +159,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
 
     func currentTemplate(family: CLKComplicationFamily) -> CLKComplicationTemplate? {
-        let appNameTextProvider = CLKSimpleTextProvider(text: "🍍計時器")
+        let appNameTextProvider = CLKSimpleTextProvider(text: "🍍Timer")
         let relativeDateTextProvider = CLKRelativeDateTextProvider(date: dataStorage.end, style: .offsetShort, units: [.minute])
         let longRelativeDateTextProvider = CLKRelativeDateTextProvider(date: dataStorage.end, style: .naturalFull, units: [.minute, .second])
         let simpleTextProvider = CLKSimpleTextProvider(text: "🍍")
