@@ -19,6 +19,7 @@ struct ListView: View {
                 List {
                     ForEach(dataStorage.dates.datedRecords(), id: \.date) { record in
                         ListItem(record: record)
+                            .environmentObject(self.dataStorage)
                     }
                 }
                 .listStyle(CarouselListStyle())
@@ -40,24 +41,31 @@ struct ListView: View {
 }
 
 struct ListItem: View {
+    @EnvironmentObject var dataStorage: DataStorage
+    @State var showDetail = false
+
     let record: DatedRecord
     var body: some View {
-        NavigationLink(destination:
-            RecordDetailView(record: record)
-        ) {
-            VStack(alignment: .leading) {
-                Text(record.dateString)
-                    .font(.headline)
-                Text(record.🍍String)
-                    .font(.subheadline)
-                    .lineLimit(3)
-            }
+        NavigationLink(
+            destination: RecordDetailView(showing: $showDetail, record: record)
+                .environmentObject(self.dataStorage),
+            isActive: $showDetail) {
+                VStack(alignment: .leading) {
+                    Text(record.dateString)
+                        .font(.headline)
+                    Text(record.🍍String)
+                        .font(.subheadline)
+                        .lineLimit(3)
+                }
         }
         .padding(.vertical)
     }
 }
 
 struct RecordDetailView: View {
+    @EnvironmentObject var dataStorage: DataStorage
+    @Binding var showing: Bool
+
     let record: DatedRecord
     var body: some View {
         HStack(alignment: .firstTextBaseline) {
@@ -68,6 +76,20 @@ struct RecordDetailView: View {
         .font(.title)
         .lineLimit(10)
         .navigationBarTitle(record.dateString)
+        .contextMenu(menuItems: {
+            Button(action: {
+                WKInterfaceDevice.current().play(.success)
+                let cal = Calendar(identifier: .gregorian)
+                let dates = self.dataStorage.dates.filter { cal.isDate($0, inSameDayAs: self.record.date) == false }
+                self.dataStorage.load(dates)
+                self.showing = false
+            }) {
+                VStack {
+                    Image(systemName: "trash")
+                    Text("Clear this day")
+                }
+            }
+        })
     }
 }
 
@@ -122,7 +144,7 @@ struct ListView_Previews: PreviewProvider {
 
             ListItem(record: dataStorage.dates.datedRecords()[0])
 
-            RecordDetailView(record: dataStorage.dates.datedRecords()[0])
+            RecordDetailView(showing: .constant(true), record: dataStorage.dates.datedRecords()[0])
         }
     }
 }
