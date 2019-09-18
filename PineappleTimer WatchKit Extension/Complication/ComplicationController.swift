@@ -56,13 +56,31 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
 
     func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
-        if dataStorage.isCountingDown,
-            date > dataStorage.end,
-            let template = self.placeholderTemplate(family: complication.family) {
-            let entry = CLKComplicationTimelineEntry(date: date, complicationTemplate: template)
-            handler([entry])
+        var entries: [CLKComplicationTimelineEntry] = []
+
+        if dataStorage.isCountingDown {
+            if let template = self.placeholderTemplate(family: complication.family) {
+                let endEntry = CLKComplicationTimelineEntry(date: dataStorage.end, complicationTemplate: template)
+                entries.append(endEntry)
+            }
+
+            if date > dataStorage.end,
+                let template = self.placeholderTemplate(family: complication.family) {
+                let entry = CLKComplicationTimelineEntry(date: date, complicationTemplate: template)
+                entries.append(entry)
+            } else if let template = self.currentTemplate(family: complication.family) {
+                let entry = CLKComplicationTimelineEntry(date: date, complicationTemplate: template)
+                entries.append(entry)
+            }
+
+            handler(entries)
+        } else if let template = self.placeholderTemplate(family: complication.family) {
+            let endEntry = CLKComplicationTimelineEntry(date: date, complicationTemplate: template)
+            entries.append(endEntry)
+
+            handler(entries)
         } else {
-            handler(nil)
+            handler(entries)
         }
     }
     
