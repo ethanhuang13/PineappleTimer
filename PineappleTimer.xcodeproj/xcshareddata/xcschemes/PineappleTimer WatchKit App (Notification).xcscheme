@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6C890E392328E27D007051E6"
-               BuildableName = "&#x1f34d;Timer.app"
+               BuildableName = "PineappleTimer.app"
                BlueprintName = "PineappleTimer WatchKit App"
                ReferencedContainer = "container:PineappleTimer.xcodeproj">
             </BuildableReference>
@@ -63,7 +63,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6C890E392328E27D007051E6"
-            BuildableName = "&#x1f34d;Timer.app"
+            BuildableName = "PineappleTimer.app"
             BlueprintName = "PineappleTimer WatchKit App"
             ReferencedContainer = "container:PineappleTimer.xcodeproj">
          </BuildableReference>
@@ -84,7 +84,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6C890E392328E27D007051E6"
-            BuildableName = "&#x1f34d;Timer.app"
+            BuildableName = "PineappleTimer.app"
             BlueprintName = "PineappleTimer WatchKit App"
             ReferencedContainer = "container:PineappleTimer.xcodeproj">
          </BuildableReference>
@@ -93,7 +93,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6C890E392328E27D007051E6"
-            BuildableName = "&#x1f34d;Timer.app"
+            BuildableName = "PineappleTimer.app"
             BlueprintName = "PineappleTimer WatchKit App"
             ReferencedContainer = "container:PineappleTimer.xcodeproj">
          </BuildableReference>
