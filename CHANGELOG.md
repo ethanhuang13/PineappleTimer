@@ -2,6 +2,8 @@
 # PineappleTimer
 
 ## [Unreleased]
+
+## [watchOS 1.0.0(3)] - 2019-09-18
 - 解決 complication 沒有更新的問題
 - Contact me via Twitter
 - Fix app name localization
