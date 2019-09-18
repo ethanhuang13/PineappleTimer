@@ -3,6 +3,7 @@
 
 ## [Unreleased]
 - 解決 complication 沒有更新的問題
+- Contact me via Twitter
 
 ## [watchOS 1.0.0(2)] - 2019-09-16
 - 解決 complication 在背景沒有更新的問題
