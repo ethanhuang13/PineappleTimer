@@ -88,7 +88,7 @@ struct TimerView: View {
                 }
                 .alert(isPresented: $showingInfoAlert) {
                     Alert(title: Text("About 🍍Timer"),
-                          message: Text("Every 🍍 is...")
+                          message: Text(NSLocalizedString("Every 🍍 is...", comment: "") + "\n\n" + appVersionString)
                             .font(.caption),
                           dismissButton: .cancel(Text("I See")))
                 }
@@ -177,3 +177,15 @@ struct TimerView_Previews: PreviewProvider {
         }
     }
 }
+
+private var appVersion: String = {
+    return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+}()
+
+private var buildVersion: String = {
+    return Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
+}()
+
+private var appVersionString: String = {
+    return "v\(appVersion)(\(buildVersion))"
+}()
