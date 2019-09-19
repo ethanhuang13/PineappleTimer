@@ -2,6 +2,8 @@
 # PineappleTimer
 
 ## [Unreleased]
+
+## [watchOS 1.0.0(4)] - 2019-09-19
 - Add 5 minutes rest notification
 
 ## [watchOS 1.0.0(3)] - 2019-09-18
