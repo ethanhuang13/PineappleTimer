@@ -89,7 +89,7 @@
 		6C890E492328E27E007051E6 /* PineappleTimer WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "PineappleTimer WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C890E4E2328E27E007051E6 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		6C890E502328E27E007051E6 /* TimerHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerHostingController.swift; sourceTree = "<group>"; };
-		6C890E522328E27E007051E6 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		6C890E522328E27E007051E6 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		6C890E542328E27E007051E6 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		6C890E562328E27E007051E6 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		6C890E582328E27E007051E6 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
@@ -129,6 +129,7 @@
 		6C852623232C06F6003F1F46 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
+				6C890E562328E27E007051E6 /* NotificationView.swift */,
 				6C890E542328E27E007051E6 /* NotificationController.swift */,
 				6C890E602328E27F007051E6 /* PushNotificationPayload.apns */,
 			);
@@ -197,7 +198,6 @@
 			children = (
 				6C890E5F2328E27F007051E6 /* Info.plist */,
 				6C890E522328E27E007051E6 /* ExtensionDelegate.swift */,
-				6C890E562328E27E007051E6 /* NotificationView.swift */,
 				6C890E5A2328E27F007051E6 /* Assets.xcassets */,
 				6C852622232C06E6003F1F46 /* Complication */,
 				6C852625232C07F0003F1F46 /* List */,

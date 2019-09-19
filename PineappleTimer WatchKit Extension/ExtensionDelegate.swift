@@ -11,10 +11,12 @@ import WatchKit
 
 let dataStorage = DataStorage()
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate {
+class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenterDelegate {
 
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
+        UNUserNotificationCenter.current().delegate = self
+
         let dates: [Date] = (UserDefaults.standard.array(forKey: datesKey) as? [Date]) ?? []
         dataStorage.load(dates)
 
@@ -25,13 +27,13 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func applicationDidBecomeActive() {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        cancelLocalNotification()
+        cancelLocalNotifications()
     }
 
     func applicationWillResignActive() {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, etc.
-        scheduleLocalNotification()
+        scheduleLocalNotifications()
         scheduleBackgroundRefreshTask()
     }
 
@@ -67,6 +69,20 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
             }
         }
     }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        if response.actionIdentifier == "startTimer" {
+            dataStorage.isCountingDown = true
+
+            let timeInterval = limit
+            let now = Date()
+            dataStorage.end = now.addingTimeInterval(timeInterval)
+
+            WKInterfaceDevice.current().play(.start)
+
+            reloadComplications()
+        }
+    }
 }
 
 func requestNotificationPermissions() {
@@ -77,19 +93,40 @@ func requestNotificationPermissions() {
     }
 }
 
-private func scheduleLocalNotification() {
+private func scheduleLocalNotifications() {
     guard dataStorage.isCountingDown else {
         return
     }
 
-    let timeInterval = dataStorage.end.timeIntervalSince(Date())
-    let content = UNMutableNotificationContent()
-    content.title = NSLocalizedString("🍍Timer", comment: "")
-    content.body = NSLocalizedString("Take a break, then start another one.", comment: "")
-    content.sound = UNNotificationSound.default
-    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
-    let request = UNNotificationRequest(identifier: "stopTimer", content: content, trigger: trigger)
-    UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    func scheduleTakeABreak() {
+        let timeInterval = dataStorage.end.timeIntervalSince(Date())
+        let content = UNMutableNotificationContent()
+        content.title = NSLocalizedString("Time is up", comment: "")
+        content.body = NSLocalizedString("Take a break, then start another one.", comment: "")
+        content.sound = UNNotificationSound.default
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
+        let request = UNNotificationRequest(identifier: "stopTimer", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
+
+    func scheduleStartNext() {
+        let startTimerAction = UNNotificationAction(identifier: "startTimer", title: NSLocalizedString("Start", comment: "Start"), options: [])
+        let category = UNNotificationCategory(identifier: "startTimer", actions: [startTimerAction], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+
+        let timeInterval: TimeInterval = dataStorage.end.timeIntervalSince(Date()) + 60 * 5
+        let content = UNMutableNotificationContent()
+        content.categoryIdentifier = "startTimer"
+        content.title = NSLocalizedString("Let's 🍍", comment: "")
+        content.body = NSLocalizedString("Start another 🍍 if you are ready.", comment: "")
+        content.sound = UNNotificationSound.default
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
+        let request = UNNotificationRequest(identifier: "startTimer", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
+
+    scheduleTakeABreak()
+    scheduleStartNext()
 }
 
 private func scheduleBackgroundRefreshTask() {
@@ -100,8 +137,8 @@ private func scheduleBackgroundRefreshTask() {
     WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: dataStorage.end.addingTimeInterval(1), userInfo: nil) { error in }
 }
 
-func cancelLocalNotification() {
-    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["stopTimer"])
+func cancelLocalNotifications() {
+    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["stopTimer", "startTimer"])
 }
 
 func reloadComplications() {

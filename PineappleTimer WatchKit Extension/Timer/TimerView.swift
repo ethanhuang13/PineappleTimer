@@ -137,7 +137,7 @@ struct TimerView: View {
         dataStorage.isCountingDown = false
         time = 0
         WKInterfaceDevice.current().play(.failure)
-        cancelLocalNotification()
+        cancelLocalNotifications()
 
         reloadComplications()
     }
