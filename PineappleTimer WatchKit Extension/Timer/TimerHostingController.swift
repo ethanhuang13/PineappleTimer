@@ -10,11 +10,20 @@ import WatchKit
 import Foundation
 import SwiftUI
 
-class TimerHostingController: WKHostingController<AnyView> {
-    override var body: AnyView {
-        return AnyView(
-            TimerView()
-                .environmentObject(dataStorage)
-        )
+class TimerHostingController: WKHostingController<TimerViewContainer> {
+    override var body: TimerViewContainer {
+        return TimerViewContainer()
+    }
+
+    override func didAppear() {
+        print("didAppear TimerView")
+        userStatus.currentPage = .timer
+    }
+}
+
+struct TimerViewContainer: View {
+    var body: some View {
+        TimerView()
+            .environmentObject(userStatus)
     }
 }

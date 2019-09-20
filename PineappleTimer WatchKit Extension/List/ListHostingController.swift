@@ -10,12 +10,20 @@ import WatchKit
 import Foundation
 import SwiftUI
 
-class ListHostingController: WKHostingController<AnyView> {
-    override var body: AnyView {
-        return AnyView(
-            ListView()
-                .environmentObject(dataStorage)
-        )
+class ListHostingController: WKHostingController<ListViewContainer> {
+    override var body: ListViewContainer {
+        return ListViewContainer()
+    }
+
+    override func didAppear() {
+        print("didAppear ListView")
+        userStatus.currentPage = .list
     }
 }
 
+struct ListViewContainer: View {
+    var body: some View {
+        ListView()
+            .environmentObject(userStatus)
+    }
+}

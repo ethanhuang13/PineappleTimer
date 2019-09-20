@@ -13,7 +13,7 @@
 		6C852621232C057C003F1F46 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C852615232C00D3003F1F46 /* InfoPlist.strings */; };
 		6C852627232C07FF003F1F46 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C852626232C07FF003F1F46 /* ListView.swift */; };
 		6C852629232C082E003F1F46 /* ListHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C852628232C082E003F1F46 /* ListHostingController.swift */; };
-		6C85262C232C15D0003F1F46 /* DataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85262B232C15D0003F1F46 /* DataStorage.swift */; };
+		6C85262C232C15D0003F1F46 /* UserStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85262B232C15D0003F1F46 /* UserStatus.swift */; };
 		6C85262E232C1617003F1F46 /* DatedRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85262D232C1617003F1F46 /* DatedRecord.swift */; };
 		6C890E3B2328E27D007051E6 /* PineappleTimer.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 6C890E3A2328E27D007051E6 /* PineappleTimer.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6C890E412328E27D007051E6 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C890E3F2328E27D007051E6 /* Interface.storyboard */; };
@@ -79,7 +79,7 @@
 		6C852616232C00D9003F1F46 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6C852626232C07FF003F1F46 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		6C852628232C082E003F1F46 /* ListHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHostingController.swift; sourceTree = "<group>"; };
-		6C85262B232C15D0003F1F46 /* DataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorage.swift; sourceTree = "<group>"; };
+		6C85262B232C15D0003F1F46 /* UserStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatus.swift; sourceTree = "<group>"; };
 		6C85262D232C1617003F1F46 /* DatedRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatedRecord.swift; sourceTree = "<group>"; };
 		6C890E362328E27D007051E6 /* PineappleTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PineappleTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C890E3A2328E27D007051E6 /* PineappleTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PineappleTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,7 +157,7 @@
 		6C85262A232C15BD003F1F46 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6C85262B232C15D0003F1F46 /* DataStorage.swift */,
+				6C85262B232C15D0003F1F46 /* UserStatus.swift */,
 				6C85262D232C1617003F1F46 /* DatedRecord.swift */,
 			);
 			path = Model;
@@ -358,7 +358,7 @@
 				6C890E552328E27E007051E6 /* NotificationController.swift in Sources */,
 				6C890E532328E27E007051E6 /* ExtensionDelegate.swift in Sources */,
 				6C890E572328E27E007051E6 /* NotificationView.swift in Sources */,
-				6C85262C232C15D0003F1F46 /* DataStorage.swift in Sources */,
+				6C85262C232C15D0003F1F46 /* UserStatus.swift in Sources */,
 				6C890E592328E27E007051E6 /* ComplicationController.swift in Sources */,
 				6C852629232C082E003F1F46 /* ListHostingController.swift in Sources */,
 				6C85262E232C1617003F1F46 /* DatedRecord.swift in Sources */,

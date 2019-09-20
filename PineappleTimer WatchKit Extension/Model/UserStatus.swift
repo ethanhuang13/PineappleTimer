@@ -16,7 +16,17 @@ let limit: Double = 25 * 60
 
 let datesKey = "pineapple.dates"
 
-class DataStorage: ObservableObject {
+class UserStatus: ObservableObject {
+    enum Status {
+        case idle
+        case countingDown
+    }
+
+    enum Page {
+        case timer
+        case list
+    }
+
     @Published var dates: [Date] = [] {
         didSet {
             save()
@@ -25,7 +35,9 @@ class DataStorage: ObservableObject {
 
     @Published var end = Date()
     var start: Date { end.addingTimeInterval(limit) }
-    @Published var isCountingDown = false
+
+    @Published var status: Status = .idle
+    @Published var currentPage: Page = .timer
 
     /// Call when appDidFinishLaunching
     func load(_ dates: [Date]) {

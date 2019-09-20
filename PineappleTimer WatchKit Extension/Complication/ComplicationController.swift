@@ -19,18 +19,20 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTimelineStartDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
-        if dataStorage.isCountingDown {
-            handler(dataStorage.end.addingTimeInterval(-limit))
-        } else {
+        switch userStatus.status {
+        case .idle:
             handler(nil)
+        case .countingDown:
+            handler(userStatus.end.addingTimeInterval(-limit))
         }
     }
     
     func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
-        if dataStorage.isCountingDown {
-            handler(dataStorage.end)
-        } else {
+        switch userStatus.status {
+        case .idle:
             handler(nil)
+        case .countingDown:
+            handler(userStatus.end)
         }
     }
     
@@ -43,7 +45,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
         // Call the handler with the current timeline entry
 
-        if dataStorage.isCountingDown,
+        if userStatus.status == .countingDown,
             let template = self.currentTemplate(family: complication.family) {
             let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
             handler(entry)
@@ -58,13 +60,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
         var entries: [CLKComplicationTimelineEntry] = []
 
-        if dataStorage.isCountingDown {
+        if userStatus.status == .countingDown {
             if let template = self.placeholderTemplate(family: complication.family) {
-                let endEntry = CLKComplicationTimelineEntry(date: dataStorage.end, complicationTemplate: template)
+                let endEntry = CLKComplicationTimelineEntry(date: userStatus.end, complicationTemplate: template)
                 entries.append(endEntry)
             }
 
-            if date > dataStorage.end,
+            if date > userStatus.end,
                 let template = self.placeholderTemplate(family: complication.family) {
                 let entry = CLKComplicationTimelineEntry(date: date, complicationTemplate: template)
                 entries.append(entry)
@@ -167,7 +169,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         case .graphicRectangular:
             let template = CLKComplicationTemplateGraphicRectangularTextGauge()
             template.headerTextProvider = appNameTextProvider
-            template.body1TextProvider = CLKRelativeDateTextProvider(date: dataStorage.end, style: .naturalFull, units: [.minute, .second])
+            template.body1TextProvider = CLKRelativeDateTextProvider(date: userStatus.end, style: .naturalFull, units: [.minute, .second])
             template.gaugeProvider = gaugeProvider
             return template
 
@@ -178,10 +180,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 
     func currentTemplate(family: CLKComplicationFamily) -> CLKComplicationTemplate? {
         let appNameTextProvider = CLKSimpleTextProvider(text: NSLocalizedString("🍍Timer", comment: "🍍Timer"))
-        let relativeDateTextProvider = CLKRelativeDateTextProvider(date: dataStorage.end, style: .offsetShort, units: [.minute])
-        let longRelativeDateTextProvider = CLKRelativeDateTextProvider(date: dataStorage.end, style: .naturalFull, units: [.minute, .second])
+        let relativeDateTextProvider = CLKRelativeDateTextProvider(date: userStatus.end, style: .offsetShort, units: [.minute])
+        let longRelativeDateTextProvider = CLKRelativeDateTextProvider(date: userStatus.end, style: .naturalFull, units: [.minute, .second])
         let simpleTextProvider = CLKSimpleTextProvider(text: "🍍")
-        let gaugeProvider = CLKTimeIntervalGaugeProvider(style: .fill, gaugeColors: [.green, .yellow, .orange], gaugeColorLocations: [0, 0.2, 0.8], start: dataStorage.end.addingTimeInterval(-limit), end: dataStorage.end)
+        let gaugeProvider = CLKTimeIntervalGaugeProvider(style: .fill, gaugeColors: [.green, .yellow, .orange], gaugeColorLocations: [0, 0.2, 0.8], start: userStatus.end.addingTimeInterval(-limit), end: userStatus.end)
         let tintColor = UIColor.yellow
 
         switch family {
@@ -255,7 +257,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         case .graphicRectangular:
             let template = CLKComplicationTemplateGraphicRectangularTextGauge()
             template.headerTextProvider = appNameTextProvider
-            template.body1TextProvider = CLKRelativeDateTextProvider(date: dataStorage.end, style: .naturalFull, units: [.minute, .second])
+            template.body1TextProvider = CLKRelativeDateTextProvider(date: userStatus.end, style: .naturalFull, units: [.minute, .second])
             template.gaugeProvider = gaugeProvider
             return template
 

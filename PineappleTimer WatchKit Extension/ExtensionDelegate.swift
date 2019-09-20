@@ -9,7 +9,7 @@
 import UserNotifications
 import WatchKit
 
-let dataStorage = DataStorage()
+let userStatus = UserStatus()
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenterDelegate {
 
@@ -18,7 +18,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
         UNUserNotificationCenter.current().delegate = self
 
         let dates: [Date] = (UserDefaults.standard.array(forKey: datesKey) as? [Date]) ?? []
-        dataStorage.load(dates)
+        userStatus.load(dates)
 
         #if DEBUG
 //        dataStorage.load(previewDates)
@@ -27,7 +27,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
 
     func applicationDidBecomeActive() {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        cancelLocalNotifications()
+//        cancelLocalNotifications()
     }
 
     func applicationWillResignActive() {
@@ -72,11 +72,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         if response.actionIdentifier == "startTimer" {
-            dataStorage.isCountingDown = true
+            userStatus.status = .countingDown
 
             let timeInterval = limit
             let now = Date()
-            dataStorage.end = now.addingTimeInterval(timeInterval)
+            userStatus.end = now.addingTimeInterval(timeInterval)
 
             WKInterfaceDevice.current().play(.start)
 
@@ -94,12 +94,12 @@ func requestNotificationPermissions() {
 }
 
 private func scheduleLocalNotifications() {
-    guard dataStorage.isCountingDown else {
+    guard userStatus.status == .countingDown else {
         return
     }
 
     func scheduleTakeABreak() {
-        let timeInterval = dataStorage.end.timeIntervalSince(Date())
+        let timeInterval = userStatus.end.timeIntervalSince(Date())
         let content = UNMutableNotificationContent()
         content.title = NSLocalizedString("Time is up", comment: "")
         content.body = NSLocalizedString("Take a break, then start another one.", comment: "")
@@ -114,7 +114,7 @@ private func scheduleLocalNotifications() {
         let category = UNNotificationCategory(identifier: "startTimer", actions: [startTimerAction], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
 
-        let timeInterval: TimeInterval = dataStorage.end.timeIntervalSince(Date()) + 60 * 5
+        let timeInterval: TimeInterval = userStatus.end.timeIntervalSince(Date()) + 60 * 5
         let content = UNMutableNotificationContent()
         content.categoryIdentifier = "startTimer"
         content.title = NSLocalizedString("Let's 🍍", comment: "")
@@ -125,16 +125,21 @@ private func scheduleLocalNotifications() {
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
 
-    scheduleTakeABreak()
-    scheduleStartNext()
+    switch userStatus.status {
+    case .idle:
+        break
+    case .countingDown:
+        scheduleTakeABreak()
+        scheduleStartNext()
+    }
 }
 
 private func scheduleBackgroundRefreshTask() {
-    guard dataStorage.isCountingDown else {
+    guard userStatus.status == .countingDown else {
         return
     }
 
-    WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: dataStorage.end.addingTimeInterval(1), userInfo: nil) { error in }
+    WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: userStatus.end.addingTimeInterval(1), userInfo: nil) { error in }
 }
 
 func cancelLocalNotifications() {

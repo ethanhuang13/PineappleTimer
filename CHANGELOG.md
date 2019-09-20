@@ -2,6 +2,10 @@
 # PineappleTimer
 
 ## [Unreleased]
+- Don't use AnyView hack
+- Get current page with HostingController's didAppear()
+- Rename DataStorage to UserStatus
+- Refactor isCountingDown to Status
 
 ## [watchOS 1.0.0(4)] - 2019-09-19
 - Add 5 minutes rest notification

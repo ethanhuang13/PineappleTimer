@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ListView: View {
-    @EnvironmentObject var dataStorage: DataStorage
+    @EnvironmentObject var dataStorage: UserStatus
 
     var body: some View {
         if dataStorage.dates.isEmpty {
@@ -20,6 +20,7 @@ struct ListView: View {
                     ForEach(dataStorage.dates.datedRecords(), id: \.date) { record in
                         ListItem(record: record)
                             .environmentObject(self.dataStorage)
+                            .listRowPlatterColor(.orange)
                     }
                 }
                 .listStyle(CarouselListStyle())
@@ -41,7 +42,7 @@ struct ListView: View {
 }
 
 struct ListItem: View {
-    @EnvironmentObject var dataStorage: DataStorage
+    @EnvironmentObject var dataStorage: UserStatus
     @State var showDetail = false
 
     let record: DatedRecord
@@ -63,7 +64,7 @@ struct ListItem: View {
 }
 
 struct RecordDetailView: View {
-    @EnvironmentObject var dataStorage: DataStorage
+    @EnvironmentObject var dataStorage: UserStatus
     @Binding var showing: Bool
 
     let record: DatedRecord
@@ -120,10 +121,10 @@ let previewDates: [Date] = [
     Date().addingTimeInterval(-86400 * 6),
 ]
 
-var previewDataStorage: DataStorage {
-    let dataStorage = DataStorage()
-    dataStorage.load(previewDates)
-    return dataStorage
+var previewDataStorage: UserStatus {
+    let userStatus = UserStatus()
+    userStatus.load(previewDates)
+    return userStatus
 }
 
 struct ListView_Previews: PreviewProvider {
@@ -142,9 +143,9 @@ struct ListView_Previews: PreviewProvider {
                 .environmentObject(previewDataStorage)
                 .modifier(AppleWatch5_44())
 
-            ListItem(record: dataStorage.dates.datedRecords()[0])
+            ListItem(record: userStatus.dates.datedRecords()[0])
 
-            RecordDetailView(showing: .constant(true), record: dataStorage.dates.datedRecords()[0])
+            RecordDetailView(showing: .constant(true), record: userStatus.dates.datedRecords()[0])
         }
     }
 }

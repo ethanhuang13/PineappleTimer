@@ -11,7 +11,7 @@ import SwiftUI
 import UserNotifications
 
 struct TimerView: View {
-    @EnvironmentObject var dataStorage: DataStorage
+    @EnvironmentObject var dataStorage: UserStatus
     @State private var time: TimeInterval = 0
     @State private var now = Date()
     @State private var showingInfoAlert = false
@@ -20,7 +20,7 @@ struct TimerView: View {
     let timer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
 
     var topText: some View {
-        if dataStorage.isCountingDown {
+        if dataStorage.status == .countingDown {
             return Text("Counting down. Focus.") // TODO: 調整不同倒數階段顯示的文字
         } else if time == 0 {
             return Text("Rotate Digital Crown 👉")
@@ -34,7 +34,7 @@ struct TimerView: View {
     }
 
     var timeText: some View {
-        Text(dataStorage.isCountingDown ? dataStorage.end.timeIntervalSince(now).minuteSecondString : time.minuteSecondString)
+        Text(dataStorage.status == .countingDown ? dataStorage.end.timeIntervalSince(now).minuteSecondString : time.minuteSecondString)
     }
 
     var body: some View {
@@ -47,7 +47,7 @@ struct TimerView: View {
             timeText
                 .font(.largeTitle)
                 .onReceive(timer) { _ in
-                    guard self.dataStorage.isCountingDown else {
+                    guard self.dataStorage.status == .countingDown else {
                         return
                     }
                     self.now = Date()
@@ -59,7 +59,7 @@ struct TimerView: View {
 
             Spacer()
 
-            if dataStorage.isCountingDown {
+            if dataStorage.status == .countingDown {
                 Button(action: {
                     self.showingResetTimerAlert = true
                 }) {
@@ -95,7 +95,7 @@ struct TimerView: View {
             }
         }
         .navigationBarTitle("🍍Timer")
-        .focusable(time < limit) { isFocus in
+        .focusable(time < limit && dataStorage.currentPage == .timer) { isFocus in
             guard isFocus == false,
                 self.time == limit else {
                     return
@@ -120,7 +120,7 @@ struct TimerView: View {
 
     func startTimer() {
         print("Go!")
-        dataStorage.isCountingDown = true
+        dataStorage.status = .countingDown
 
         let timeInterval = limit
         now = Date()
@@ -134,7 +134,7 @@ struct TimerView: View {
     }
 
     func cancelTimer() {
-        dataStorage.isCountingDown = false
+        dataStorage.status = .idle
         time = 0
         WKInterfaceDevice.current().play(.failure)
         cancelLocalNotifications()
@@ -143,7 +143,7 @@ struct TimerView: View {
     }
 
     func finishTimer() {
-        dataStorage.isCountingDown = false
+        dataStorage.status = .idle
         time = 0
         WKInterfaceDevice.current().play(.success)
 
