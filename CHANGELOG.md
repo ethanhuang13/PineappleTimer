@@ -2,6 +2,8 @@
 # PineappleTimer
 
 ## [Unreleased]
+
+## [watchOS 1.0.0(5)] - 2019-09-20
 - Don't use AnyView hack
 - Get current page with HostingController's didAppear()
 - Rename DataStorage to UserStatus
