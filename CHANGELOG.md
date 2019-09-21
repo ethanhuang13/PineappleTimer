@@ -2,6 +2,7 @@
 # PineappleTimer
 
 ## [Unreleased]
+- Support left Digital Crown
 
 ## [watchOS 1.0.0(5)] - 2019-09-20
 - Don't use AnyView hack

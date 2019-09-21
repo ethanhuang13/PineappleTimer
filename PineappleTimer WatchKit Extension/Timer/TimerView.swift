@@ -10,6 +10,10 @@ import Combine
 import SwiftUI
 import UserNotifications
 
+private var isCrownAtRight: Bool {
+    return WKInterfaceDevice.current().crownOrientation == .right
+}
+
 struct TimerView: View {
     @EnvironmentObject var dataStorage: UserStatus
     @State private var time: TimeInterval = 0
@@ -19,13 +23,13 @@ struct TimerView: View {
 
     let timer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
 
-    var topText: some View {
+    var mainText: some View {
         if dataStorage.status == .countingDown {
             return Text("Counting down. Focus.") // TODO: 調整不同倒數階段顯示的文字
         } else if time == 0 {
-            return Text("Rotate Digital Crown 👉")
+            return Text(isCrownAtRight ? "Rotate Digital Crown 👉" : "Rotate Digital Crown 👉 Reversed")
         } else if time > 0 && time < limit {
-            return Text("Keep rotating 👉")
+            return Text(isCrownAtRight ? "Keep rotating 👉" : "Keep rotating 👉 Reversed")
         } else if time == limit {
             return Text("Release it👌")
         } else {
@@ -37,10 +41,49 @@ struct TimerView: View {
         Text(dataStorage.status == .countingDown ? dataStorage.end.timeIntervalSince(now).minuteSecondString : time.minuteSecondString)
     }
 
+    var mainButton: some View {
+        if dataStorage.status == .countingDown {
+            return Button(action: {
+                self.showingResetTimerAlert = true
+            }) {
+                HStack {
+                    Image(systemName: "hand.raised") //"arrow.clockwise")
+                    Text("Cancel Timer")
+                }
+            }
+            .alert(isPresented: $showingResetTimerAlert) {
+                Alert(title: Text("Cancel Timer?"),
+                      message: Text("This 🍍 will be cancelled."),
+                      primaryButton: .destructive(Text("Cancel 🍍"), action: {
+                        self.cancelTimer()
+                      }),
+                      secondaryButton: .cancel(Text("Don't Cancel"))
+                )
+            }
+        } else {
+            return Button(action: {
+                self.showingInfoAlert = true
+            }) {
+                HStack {
+                    Image(systemName: "info.circle")
+                    Text("Information")
+                }
+            }
+            .alert(isPresented: $showingInfoAlert) {
+                Alert(title: Text("About 🍍Timer"),
+                      message: Text(NSLocalizedString("Every 🍍 is...", comment: "") + "\n\n" + appVersionString)
+                        .font(.caption),
+                      dismissButton: .cancel(Text("I See")))
+            }
+        }
+    }
+
     var body: some View {
         VStack {
-            topText
-                .padding(.top)
+            if isCrownAtRight {
+                self.mainText
+                    .padding(.top)
+            }
 
             Spacer()
 
@@ -59,39 +102,14 @@ struct TimerView: View {
 
             Spacer()
 
-            if dataStorage.status == .countingDown {
-                Button(action: {
-                    self.showingResetTimerAlert = true
-                }) {
-                    HStack {
-                        Image(systemName: "hand.raised") //"arrow.clockwise")
-                        Text("Cancel Timer")
-                    }
-                }
-                .alert(isPresented: $showingResetTimerAlert) {
-                    Alert(title: Text("Cancel Timer?"),
-                          message: Text("This 🍍 will be cancelled."),
-                          primaryButton: .destructive(Text("Cancel 🍍"), action: {
-                            self.cancelTimer()
-                          }),
-                          secondaryButton: .cancel(Text("Don't Cancel"))
-                    )
-                }
+            if isCrownAtRight {
+                self.mainButton
             } else {
-                Button(action: {
-                    self.showingInfoAlert = true
-                }) {
-                    HStack {
-                        Image(systemName: "info.circle")
-                        Text("Information")
-                    }
-                }
-                .alert(isPresented: $showingInfoAlert) {
-                    Alert(title: Text("About 🍍Timer"),
-                          message: Text(NSLocalizedString("Every 🍍 is...", comment: "") + "\n\n" + appVersionString)
-                            .font(.caption),
-                          dismissButton: .cancel(Text("I See")))
-                }
+                self.mainText
+                    .padding(.top)
+
+                self.mainButton
+                    .padding(.bottom)
             }
         }
         .navigationBarTitle("🍍Timer")
