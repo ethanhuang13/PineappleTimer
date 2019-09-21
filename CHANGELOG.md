@@ -2,6 +2,8 @@
 # PineappleTimer
 
 ## [Unreleased]
+
+## [watchOS 1.0.0(6)] - 2019-09-21
 - Support left Digital Crown
 
 ## [watchOS 1.0.0(5)] - 2019-09-20
