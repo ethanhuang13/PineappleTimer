@@ -2,6 +2,8 @@
 # PineappleTimer
 
 ## [Unreleased]
+
+## [watchOS 1.1.0(7)] - 2019-09-24
 - Fix reload complication in background
 
 ## [watchOS 1.0.0(6)] - 2019-09-21
