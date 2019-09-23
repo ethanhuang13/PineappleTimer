@@ -12,7 +12,7 @@
 
 ## Screenshots
 
-| | |
+| Page | Screenshot |
 | - | - |
 | Counting Down | ![](Screenshots/1.png) |
 | Complications | ![](Screenshots/2.png) |
