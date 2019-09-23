@@ -2,6 +2,7 @@
 # PineappleTimer
 
 ## [Unreleased]
+- Fix reload complication in background
 
 ## [watchOS 1.0.0(6)] - 2019-09-21
 - Support left Digital Crown

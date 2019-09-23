@@ -80,7 +80,14 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
 
             WKInterfaceDevice.current().play(.start)
 
-            reloadComplications()
+            switch WKExtension.shared().applicationState {
+            case .active:
+                reloadComplications()
+            case .background, .inactive:
+                reloadComplicationsInBackground()
+            @unknown default:
+                reloadComplicationsInBackground()
+            }
         }
     }
 }
@@ -152,4 +159,8 @@ func reloadComplications() {
         server.reloadTimeline(for: complication)
         print("Reload complication: \(complication.family.rawValue)")
     }
+}
+
+func reloadComplicationsInBackground() {
+    WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(), userInfo: nil) { error in }
 }
