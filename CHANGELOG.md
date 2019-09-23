@@ -2,6 +2,7 @@
 # PineappleTimer
 
 ## [Unreleased]
+- Change notification action, just open the app. (User should rotate Digital Crown to set timer)
 
 ## [watchOS 1.1.0(7)] - 2019-09-24
 - Fix reload complication in background

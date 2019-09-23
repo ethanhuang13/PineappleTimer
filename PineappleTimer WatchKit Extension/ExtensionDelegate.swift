@@ -27,7 +27,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
 
     func applicationDidBecomeActive() {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-//        cancelLocalNotifications()
     }
 
     func applicationWillResignActive() {
@@ -72,22 +71,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         if response.actionIdentifier == "startTimer" {
-            userStatus.status = .countingDown
-
-            let timeInterval = limit
-            let now = Date()
-            userStatus.end = now.addingTimeInterval(timeInterval)
-
-            WKInterfaceDevice.current().play(.start)
-
-            switch WKExtension.shared().applicationState {
-            case .active:
-                reloadComplications()
-            case .background, .inactive:
-                reloadComplicationsInBackground()
-            @unknown default:
-                reloadComplicationsInBackground()
-            }
+            // Do nothing
         }
     }
 }
@@ -117,7 +101,7 @@ private func scheduleLocalNotifications() {
     }
 
     func scheduleStartNext() {
-        let startTimerAction = UNNotificationAction(identifier: "startTimer", title: NSLocalizedString("Start", comment: "Start"), options: [])
+        let startTimerAction = UNNotificationAction(identifier: "startTimer", title: NSLocalizedString("Open", comment: "Open"), options: [.foreground])
         let category = UNNotificationCategory(identifier: "startTimer", actions: [startTimerAction], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
 
@@ -159,8 +143,4 @@ func reloadComplications() {
         server.reloadTimeline(for: complication)
         print("Reload complication: \(complication.family.rawValue)")
     }
-}
-
-func reloadComplicationsInBackground() {
-    WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(), userInfo: nil) { error in }
 }
