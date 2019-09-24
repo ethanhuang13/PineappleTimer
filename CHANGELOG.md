@@ -2,6 +2,8 @@
 # PineappleTimer
 
 ## [Unreleased]
+
+## [watchOS 1.1.0(8)] - 2019-09-24
 - Change notification action, just open the app. (User should rotate Digital Crown to set timer)
 - Add Simplified Chinese localization
 
