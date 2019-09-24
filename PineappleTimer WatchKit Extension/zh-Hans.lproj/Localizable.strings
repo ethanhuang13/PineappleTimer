@@ -1,0 +1,38 @@
+/*
+  Localizable.strings
+  PineappleTimer
+
+  Created by Ethanhuang on 9/14/19.
+  Copyright © 2019 Elaborapp Co., Ltd. All rights reserved.
+*/
+
+"🍍Timer" = "🍍计时器";
+
+"Counting down. Focus." = "倒数中，专心做事";
+"Rotate Digital Crown 👉" = "转动表冠来开始 👉";
+"Rotate Digital Crown 👉 Reversed" = "↙️ 转动表冠来开始";
+"Keep rotating 👉" = "继续转动表冠 👉";
+"Keep rotating 👉 Reversed" = "↙️ 继续转动表冠";
+"Release it👌" = "放开表冠，开始倒数 👌";
+
+"Cancel Timer" = "取消计时";
+"Cancel Timer?" = "取消计时？🤔";
+"This 🍍 will be cancelled." = "这个🍍会作废喔";
+"Cancel 🍍" = "取消 🍍";
+"Don't Cancel" = "我不要取消";
+
+"Information" = "说明";
+"About 🍍Timer" = "关于🍍计时器";
+"Every 🍍 is..." = "\n每个🍍是一个 25 分钟的工作计时单位。\n\n计时期间，保持专注做好一件事情。\n\n结束之后休息一下，再开始下一个。\n\n你可以用 Twitter 联系我 @ethanhuang13";
+"I See" = "我知道了";
+
+"No history" = "没有历史纪录";
+"Clear All" = "清除所有纪录";
+"Clear this day" = "清除这天的纪录";
+"🍍History" = "🍍历史纪录";
+
+"Time is up" = "时间到啰";
+"Take a break, then start another one." = "休息一下，再接再厉。";
+"Let's 🍍" = "来个🍍吧！";
+"Start another 🍍 if you are ready." = "准备好就可以开始下一个🍍啰。";
+"Open" = "打开";
