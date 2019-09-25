@@ -68,12 +68,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
             }
         }
     }
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        if response.actionIdentifier == "startTimer" {
-            // Do nothing
-        }
-    }
 }
 
 func requestNotificationPermissions() {
@@ -101,8 +95,7 @@ private func scheduleLocalNotifications() {
     }
 
     func scheduleStartNext() {
-        let startTimerAction = UNNotificationAction(identifier: "startTimer", title: NSLocalizedString("Open", comment: "Open"), options: [.foreground])
-        let category = UNNotificationCategory(identifier: "startTimer", actions: [startTimerAction], intentIdentifiers: [], options: [])
+        let category = UNNotificationCategory(identifier: "startTimer", actions: [], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
 
         let timeInterval: TimeInterval = userStatus.end.timeIntervalSince(Date()) + 60 * 5
