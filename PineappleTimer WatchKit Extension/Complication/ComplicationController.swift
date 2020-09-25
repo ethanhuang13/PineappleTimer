@@ -175,6 +175,19 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             template.gaugeProvider = gaugeProvider
             return template
 
+        case .graphicExtraLarge:
+            if #available(watchOSApplicationExtension 7.0, *) {
+                let template = CLKComplicationTemplateGraphicExtraLargeCircularOpenGaugeRangeText()
+                template.centerTextProvider = simpleTextProvider
+                template.leadingTextProvider = CLKSimpleTextProvider(text: "25")
+                template.trailingTextProvider = CLKSimpleTextProvider(text: "0")
+                template.gaugeProvider = gaugeProvider
+                template.tintColor = tintColor
+                return template
+            } else {
+                return nil
+            }
+
         @unknown default:
             return nil
         }
@@ -264,6 +277,19 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             template.body1TextProvider = CLKRelativeDateTextProvider(date: userStatus.end, style: .naturalFull, units: [.minute, .second])
             template.gaugeProvider = gaugeProvider
             return template
+
+        case .graphicExtraLarge:
+            if #available(watchOSApplicationExtension 7.0, *) {
+                let template = CLKComplicationTemplateGraphicExtraLargeCircularOpenGaugeRangeText()
+                template.centerTextProvider = simpleTextProvider
+                template.leadingTextProvider = CLKSimpleTextProvider(text: "25")
+                template.trailingTextProvider = CLKSimpleTextProvider(text: "0")
+                template.gaugeProvider = gaugeProvider
+                template.tintColor = tintColor
+                return template
+            } else {
+                return nil
+            }
 
         @unknown default:
             return nil

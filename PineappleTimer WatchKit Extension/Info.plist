@@ -35,6 +35,7 @@
 		<string>CLKComplicationFamilyGraphicBezel</string>
 		<string>CLKComplicationFamilyGraphicCircular</string>
 		<string>CLKComplicationFamilyGraphicRectangular</string>
+		<string>CLKComplicationFamilyGraphicExtraLarge</string>
 	</array>
 	<key>NSExtension</key>
 	<dict>
