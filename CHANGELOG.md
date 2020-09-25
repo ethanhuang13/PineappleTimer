@@ -2,6 +2,8 @@
 # PineappleTimer
 
 ## [Unreleased]
+
+## [watchOS 1.2.0(10)] - 2020-09-25
 - Update project for Xcode 11
 - Fix graphicCorner complication gauge range text reversed
 - Fix graphicCircular complication with open gauge
@@ -14,6 +16,7 @@
 - Clear all delivered notifications when entering the app
 - Add empty asset for graph extra large complication
 
+---
 ## [watchOS 1.1.0(9)] - 2019-09-25
 - Remove start timer action
 
@@ -24,6 +27,7 @@
 ## [watchOS 1.1.0(7)] - 2019-09-24
 - Fix reload complication in background
 
+---
 ## [watchOS 1.0.0(6)] - 2019-09-21
 - Support left Digital Crown
 
