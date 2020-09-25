@@ -5,6 +5,7 @@
 - Update project for Xcode 11
 - Fix graphicCorner complication gauge range text reversed
 - Fix graphicCircular complication with open gauge
+- Fix graphicRectangular complication place holder body1TextProvider
 
 ## [watchOS 1.1.0(9)] - 2019-09-25
 - Remove start timer action

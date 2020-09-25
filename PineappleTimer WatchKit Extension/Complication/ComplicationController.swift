@@ -171,7 +171,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         case .graphicRectangular:
             let template = CLKComplicationTemplateGraphicRectangularTextGauge()
             template.headerTextProvider = appNameTextProvider
-            template.body1TextProvider = CLKRelativeDateTextProvider(date: userStatus.end, style: .naturalFull, units: [.minute, .second])
+            template.body1TextProvider = CLKSimpleTextProvider(text: NSLocalizedString("Let's 🍍", comment: ""))
             template.gaugeProvider = gaugeProvider
             return template
 
