@@ -11,6 +11,7 @@
 - Make digital crown rotation shorter
 - Make start timer haptic feedback stronger
 - Fix "Don't Cancel" for canceling timer alert
+- Clear all delivered notifications when entering the app
 
 ## [watchOS 1.1.0(9)] - 2019-09-25
 - Remove start timer action
