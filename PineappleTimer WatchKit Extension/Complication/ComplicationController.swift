@@ -98,7 +98,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func placeholderTemplate(family: CLKComplicationFamily) -> CLKComplicationTemplate? {
         let appNameTextProvider = CLKSimpleTextProvider(text: NSLocalizedString("🍍Timer", comment: "🍍Timer"))
         let simpleTextProvider = CLKSimpleTextProvider(text: "🍍")
-        let gaugeProvider = CLKSimpleGaugeProvider(style: .fill, gaugeColor: .yellow, fillFraction: 0)
+        let gaugeProvider = CLKSimpleGaugeProvider(style: .fill, gaugeColor: .gray, fillFraction: 0)
         let tintColor = UIColor.yellow
 
         switch family {
