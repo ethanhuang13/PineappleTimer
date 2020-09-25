@@ -9,6 +9,7 @@
 - Add graphicExtraLarge complication for watchOS 7
 - Change complication place holder gauge color to gray
 - Make digital crown rotation shorter
+- Make start timer haptic feedback stronger
 
 ## [watchOS 1.1.0(9)] - 2019-09-25
 - Remove start timer action

@@ -131,7 +131,7 @@ struct TimerView: View {
         now = Date()
         dataStorage.end = now.addingTimeInterval(timeInterval)
 
-        WKInterfaceDevice.current().play(.start)
+        WKInterfaceDevice.current().play(.directionUp)
 
         requestNotificationPermissions()
 
