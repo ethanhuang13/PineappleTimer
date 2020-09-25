@@ -2,6 +2,8 @@
 # PineappleTimer
 
 ## [Unreleased]
+
+## [watchOS 1.1.0(9)] - 2019-09-25
 - Remove start timer action
 
 ## [watchOS 1.1.0(8)] - 2019-09-24
