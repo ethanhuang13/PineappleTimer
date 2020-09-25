@@ -148,8 +148,8 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         case .graphicCorner:
             let template = CLKComplicationTemplateGraphicCornerGaugeText()
             template.outerTextProvider = simpleTextProvider
-            template.leadingTextProvider = CLKSimpleTextProvider(text: "0")
-            template.trailingTextProvider = CLKSimpleTextProvider(text: "25")
+            template.leadingTextProvider = CLKSimpleTextProvider(text: "25")
+            template.trailingTextProvider = CLKSimpleTextProvider(text: "0")
             template.gaugeProvider = gaugeProvider
             return template
 
@@ -236,8 +236,8 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         case .graphicCorner:
             let template = CLKComplicationTemplateGraphicCornerGaugeText()
             template.outerTextProvider = simpleTextProvider
-            template.leadingTextProvider = CLKSimpleTextProvider(text: "0")
-            template.trailingTextProvider = CLKSimpleTextProvider(text: "25")
+            template.leadingTextProvider = CLKSimpleTextProvider(text: "25")
+            template.trailingTextProvider = CLKSimpleTextProvider(text: "0")
             template.gaugeProvider = gaugeProvider
             return template
 
