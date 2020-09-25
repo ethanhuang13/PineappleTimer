@@ -154,8 +154,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             return template
 
         case .graphicCircular:
-            let template = CLKComplicationTemplateGraphicCircularClosedGaugeText()
+            let template = CLKComplicationTemplateGraphicCircularOpenGaugeRangeText()
             template.centerTextProvider = simpleTextProvider
+            template.leadingTextProvider = CLKSimpleTextProvider(text: "25")
+            template.trailingTextProvider = CLKSimpleTextProvider(text: "0")
             template.gaugeProvider = gaugeProvider
             return template
 
@@ -242,8 +244,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             return template
 
         case .graphicCircular:
-            let template = CLKComplicationTemplateGraphicCircularClosedGaugeText()
+            let template = CLKComplicationTemplateGraphicCircularOpenGaugeRangeText()
             template.centerTextProvider = simpleTextProvider
+            template.leadingTextProvider = CLKSimpleTextProvider(text: "25")
+            template.trailingTextProvider = CLKSimpleTextProvider(text: "0")
             template.gaugeProvider = gaugeProvider
             return template
 
