@@ -120,20 +120,7 @@ struct TimerView: View {
             }
             self.startTimer()
         }
-        .digitalCrownRotation($time, from: 0, through: limit, by: limit / 25, sensitivity: .high, isContinuous: false, isHapticFeedbackEnabled: true)
-//        .contextMenu { // This is not working
-//            if isCountingDown {
-//                Button(action: {
-//                    WKInterfaceDevice.current().play(.failure)
-//                    self.cancelTimer()
-//                }) {
-//                    VStack {
-//                        Image(systemName: "arrow.clockwise")
-//                        Text("取消計時")
-//                    }
-//                }
-//            }
-//        }
+        .digitalCrownRotation($time, from: 0, through: limit, by: limit / 16.67, sensitivity: .high, isContinuous: false, isHapticFeedbackEnabled: true)
     }
 
     func startTimer() {
