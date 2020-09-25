@@ -6,6 +6,7 @@
 //  Copyright © 2019 Elaborapp Co., Ltd. All rights reserved.
 //
 
+import ClockKit
 import UserNotifications
 import WatchKit
 
