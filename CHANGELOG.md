@@ -2,6 +2,7 @@
 # PineappleTimer
 
 ## [Unreleased]
+- Add ITSAppUsesNonExemptEncryption to Info.plist
 
 ## [watchOS 1.2.0(10)] - 2020-09-25
 - Update project for Xcode 11
